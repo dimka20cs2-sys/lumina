@@ -817,6 +817,40 @@ ul { margin: 0; }
 .download-card .sysreq strong { display: block; font-family: var(--font-display); color: var(--text-heading); font-size: .92rem; }
 .download-card .sysreq span { font-size: .82rem; color: var(--text-muted); }
 .download-logo { width: 120px; height: 120px; border-radius: 28px; box-shadow: 0 20px 45px var(--accent-glow-color); animation: float 6s ease-in-out infinite; transition: box-shadow .3s ease; }
+.security-verify {
+  margin-top: 1.5rem;
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--radius-lg);
+  background: rgba(10, 12, 20, 0.55);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+.security-verify-head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem;
+  padding-bottom: .9rem; border-bottom: 1px solid var(--border-subtle);
+}
+.security-verify-badge {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--font-display); font-weight: 800; font-size: .88rem; color: #6ee7b7;
+}
+.security-verify-badge svg { width: 18px; height: 18px; color: #34d399; }
+.security-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+.security-pills span {
+  font-size: .74rem; font-weight: 600; padding: .25rem .65rem; border-radius: 999px;
+  background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.24); color: #a7f3d0;
+}
+.security-hashes { display: flex; flex-direction: column; gap: .55rem; margin-top: .85rem; }
+.hash-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .65rem;
+  font-size: .8rem;
+}
+.hash-label { min-width: 175px; font-weight: 600; color: var(--text-body); }
+.hash-row code {
+  flex: 1; min-width: 220px; word-break: break-all;
+  padding: .3rem .65rem; border-radius: 6px;
+  background: rgba(0, 0, 0, 0.45); border: 1px solid var(--border-subtle);
+  color: #e2e8f0; font-family: Consolas, "Cascadia Code", monospace; font-size: .76rem;
+}
+.copy-hash-btn { padding: .28rem .7rem; font-size: .74rem; }
 
 /* ---------- Футер ---------- */
 .footer { padding: 2.75rem 0; background: #090a10; border-top: 1px solid var(--border-subtle); }

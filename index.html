@@ -541,8 +541,12 @@
             <div class="faq-body"><p>Все релизные версии начиная с 1.20. Для каждой версии лаунчер сам показывает, какие загрузчики модов доступны.</p></div>
           </details>
           <details class="reveal">
-            <summary>Это безопасно? Куда вводится пароль?</summary>
-            <div class="faq-body"><p>Пароль вводится только на официальном сайте Microsoft. Лаунчер показывает короткий код, вы подтверждаете его в браузере — и всё.</p></div>
+            <summary>Это безопасно? Куда вводится пароль и где хранятся токены?</summary>
+            <div class="faq-body"><p>Пароль вводится <b>только на официальном сайте Microsoft</b> в вашем браузере (протокол OAuth 2.0 Device Code). Сам лаунчер никогда не видит ваш логин и пароль. Токен сессии шифруется системным криптопровайдером <code>Windows DPAPI (CurrentUser)</code> — расшифровать файл <code>accounts.dat</code> на другом компьютере невозможно.</p></div>
+          </details>
+          <details class="reveal">
+            <summary>Почему Windows SmartScreen может показать предупреждение при первом запуске?</summary>
+            <div class="faq-body"><p>Lumina распространяется бесплатно без платного коммерческого сертификата подписи кода, поэтому фильтр SmartScreen при первом запуске может показать окно «Система Windows защитила ваш компьютер». Нажмите <b>«Подробнее» → «Выполнить в любом случае»</b>. Вы всегда можете сверить контрольную сумму <code>SHA-256</code> архива в блоке скачивания ниже через команду <code>certutil -hashfile Lumina-1.0.0.zip SHA256</code>.</p></div>
           </details>
           <details class="reveal">
             <summary>Что входит в пакет «Оптимизация»?</summary>
@@ -589,6 +593,29 @@
                   <div><strong>.NET Framework 4.x</strong><span>встроен в Windows</span></div>
                   <div><strong>WebView2</strong><span>есть в Windows 11</span></div>
                   <div><strong>Minecraft: Java</strong><span>аккаунт Microsoft</span></div>
+                </div>
+                <div class="security-verify">
+                  <div class="security-verify-head">
+                    <span class="security-verify-badge"><svg><use href="#i-shield"/></svg>Проверенная безопасность</span>
+                    <div class="security-pills">
+                      <span>OAuth 2.0 без ввода пароля</span>
+                      <span>Шифрование Windows DPAPI</span>
+                      <span>Проверка модов по SHA-512</span>
+                      <span>Без телеметрии</span>
+                    </div>
+                  </div>
+                  <div class="security-hashes">
+                    <div class="hash-row">
+                      <span class="hash-label">SHA-256 (Lumina-1.0.0.zip)</span>
+                      <code id="zip-sha256">ca57fa91d41a49439b23781d0b1fa562aef6c77c62a3c2bb4d19a4879d7e53c1</code>
+                      <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="zip-sha256">Скопировать</button>
+                    </div>
+                    <div class="hash-row">
+                      <span class="hash-label">SHA-256 (Lumina.exe)</span>
+                      <code id="exe-sha256">c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507</code>
+                      <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="exe-sha256">Скопировать</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

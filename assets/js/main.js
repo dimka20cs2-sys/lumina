@@ -370,4 +370,17 @@
 
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
+
+  document.querySelectorAll(".copy-hash-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var targetId = btn.getAttribute("data-copy-target");
+      var el = targetId ? document.getElementById(targetId) : null;
+      if (!el || !navigator.clipboard) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = "Скопировано ✓";
+        setTimeout(function () { btn.textContent = orig; }, 1800);
+      });
+    });
+  });
 })();
