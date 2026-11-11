@@ -71,7 +71,7 @@
           <li><a class="nav-link" href="#features">Возможности</a></li>
           <li><a class="nav-link" href="#instances">Инсталляции</a></li>
           <li><a class="nav-link" href="#modnest">Моды</a></li>
-          <li><a class="nav-link" href="#more">Ещё</a></li>
+          <li><a class="nav-link" href="#security">Безопасность</a></li>
           <li><a class="nav-link" href="#faq">Вопросы</a></li>
           <li class="theme-switcher-item">
             <div class="theme-switcher" role="group" aria-label="Выбор темы">
@@ -501,7 +501,7 @@
         </div>
         <div class="row row-grid steps">
           <div class="col-md-4 reveal">
-            <div class="step"><div class="step-num">1</div><h5>Скачайте</h5><p class="text-muted">Распакуйте архив в любую папку и запустите <b>Lumina.exe</b>.</p></div>
+            <div class="step"><div class="step-num">1</div><h5>Установите</h5><p class="text-muted">Запустите установщик <b>Lumina-Setup-1.0.0.exe</b> (или распакуйте Portable-архив).</p></div>
           </div>
           <div class="col-md-4 reveal" data-delay="1">
             <div class="step"><div class="step-num">2</div><h5>Войдите</h5><p class="text-muted">Войдите через аккаунт Microsoft, к которому привязана лицензия Minecraft.</p></div>
@@ -517,6 +517,41 @@
             <div class="stat"><strong class="text-gradient" data-count="5">5</strong><span>типов контента из Modrinth</span></div>
             <div class="stat"><strong class="text-gradient" data-count="9">9</strong><span>разделов в лаунчере</span></div>
             <div class="stat"><strong class="text-gradient">0 ₽</strong><span>навсегда бесплатно</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Архитектура безопасности ===================== -->
+    <section class="section section-lg" id="security">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+          <div class="col-lg-8 reveal">
+            <span class="badge badge-pill badge-success mb-3">Максимальная защита</span>
+            <h2 class="display-3">Безопасность, которой можно доверять</h2>
+            <p class="lead text-muted">Lumina спроектирована так, чтобы ваш аккаунт Microsoft, файлы игры и сохранения были защищены на системном уровне Windows.</p>
+          </div>
+        </div>
+        <div class="security-arch-grid">
+          <div class="sec-arch-card reveal">
+            <div class="icon icon-shape icon-shape-success mb-3"><svg><use href="#i-shield"/></svg></div>
+            <h5>OAuth 2.0 Device Flow</h5>
+            <p class="text-muted">Лаунчер никогда не запрашивает и не видит ваш пароль. Авторизация проходит исключительно в вашем браузере на официальном домене <code>login.microsoftonline.com</code> по одноразовому коду устройства.</p>
+          </div>
+          <div class="sec-arch-card reveal" data-delay="1">
+            <div class="icon icon-shape icon-shape-primary mb-3"><svg><use href="#i-user"/></svg></div>
+            <h5>Криптография Windows DPAPI</h5>
+            <p class="text-muted">Токены сессии в <code>accounts.dat</code> шифруются системным криптопровайдером <code>ProtectedData (CurrentUser)</code> с уникальной энтропией. Даже при копировании файла расшифровать его на другом ПК невозможно.</p>
+          </div>
+          <div class="sec-arch-card reveal" data-delay="2">
+            <div class="icon icon-shape icon-shape-coral mb-3"><svg><use href="#i-box"/></svg></div>
+            <h5>Контроль хешей SHA-1 / SHA-512</h5>
+            <p class="text-muted">Каждый файл клиента, библиотека, Java Runtime от Mojang и мод из Modrinth проверяется по криптографическому хешу до запуска. Сетевые соединения работают строго по <code>TLS 1.2 / 1.3</code> с белым списком доменов.</p>
+          </div>
+          <div class="sec-arch-card reveal" data-delay="3">
+            <div class="icon icon-shape icon-shape-info mb-3"><svg><use href="#i-layers"/></svg></div>
+            <h5>Изоляция WebView2 + CSP</h5>
+            <p class="text-muted">Интерфейс изолирован на виртуальном хосте <code>https://app.local</code> под строгой политикой <code>Content-Security-Policy</code> без внешних скриптов, телеметрии и фоновых служб, а установщик сам проверяет <code>SHA-256</code> при распаковке.</p>
           </div>
         </div>
       </div>
@@ -580,12 +615,13 @@
                   <div class="col-lg-3 text-center">
                     <img class="download-logo" src="assets/img/lumina-512.png" data-theme-logo alt="Логотип Lumina">
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-lg-5">
                     <h3 class="display-4 mb-0 mt-4">Скачайте Lumina</h3>
-                    <p class="text-muted mb-0">Версия 1.0.0 · ZIP-архив · около 1 МБ. Распакуйте и запустите — установка не требуется.</p>
+                    <p class="text-muted mb-0">Версия 1.0.0 · Установщик с ярлыками и проверкой SHA-256 (или Portable ZIP-архив без установки). Не требует прав администратора.</p>
                   </div>
-                  <div class="col-lg-3 text-center">
-                    <a href="downloads/Lumina-1.0.0.zip" download class="btn btn-gradient btn-lg btn-icon mt-4"><svg><use href="#i-download"/></svg>Скачать</a>
+                  <div class="col-lg-4 text-center download-actions-col">
+                    <a href="downloads/Lumina-Setup-1.0.0.exe" download class="btn btn-gradient btn-lg btn-icon mt-4 w-100"><svg><use href="#i-windows"/></svg>Скачать установщик (.EXE)</a>
+                    <a href="downloads/Lumina-1.0.0.zip" download class="btn btn-outline-white btn-sm btn-icon mt-2 w-100"><svg><use href="#i-download"/></svg>Portable-архив (.ZIP · 1.7 МБ)</a>
                   </div>
                 </div>
                 <div class="sysreq">
@@ -596,22 +632,27 @@
                 </div>
                 <div class="security-verify">
                   <div class="security-verify-head">
-                    <span class="security-verify-badge"><svg><use href="#i-shield"/></svg>Проверенная безопасность</span>
+                    <span class="security-verify-badge"><svg><use href="#i-shield"/></svg>Проверенная безопасность · Контрольные суммы SHA-256</span>
                     <div class="security-pills">
                       <span>OAuth 2.0 без ввода пароля</span>
                       <span>Шифрование Windows DPAPI</span>
                       <span>Проверка модов по SHA-512</span>
-                      <span>Без телеметрии</span>
+                      <a href="downloads/SHA256SUMS.txt" target="_blank" rel="noopener">SHA256SUMS.txt</a>
                     </div>
                   </div>
                   <div class="security-hashes">
                     <div class="hash-row">
-                      <span class="hash-label">SHA-256 (Lumina-1.0.0.zip)</span>
-                      <code id="zip-sha256">ca57fa91d41a49439b23781d0b1fa562aef6c77c62a3c2bb4d19a4879d7e53c1</code>
+                      <span class="hash-label">Lumina-Setup-1.0.0.exe</span>
+                      <code id="setup-sha256">4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3</code>
+                      <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="setup-sha256">Скопировать</button>
+                    </div>
+                    <div class="hash-row">
+                      <span class="hash-label">Lumina-1.0.0.zip (Portable)</span>
+                      <code id="zip-sha256">e596632ed4664827bb9f1937001605c85f34cd7b1ac4ae0b8adfa20742f4e07b</code>
                       <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="zip-sha256">Скопировать</button>
                     </div>
                     <div class="hash-row">
-                      <span class="hash-label">SHA-256 (Lumina.exe)</span>
+                      <span class="hash-label">Lumina.exe (Лаунчер)</span>
                       <code id="exe-sha256">c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507</code>
                       <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="exe-sha256">Скопировать</button>
                     </div>

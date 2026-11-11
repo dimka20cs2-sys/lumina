@@ -1,0 +1,5 @@
+Contact: https://github.com/dimka20cs2-sys/lumina/issues
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: ru, en
+Canonical: https://lumina-cisoft.vercel.app/.well-known/security.txt
+Policy: https://lumina-cisoft.vercel.app/#security
