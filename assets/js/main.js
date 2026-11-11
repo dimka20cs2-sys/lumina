@@ -255,25 +255,49 @@
 
   function renderCatalog() {
     if (!catalogList) return;
+    while (catalogList.firstChild) {
+      catalogList.removeChild(catalogList.firstChild);
+    }
     var q = (catalogFilter ? catalogFilter.value : "").trim().toLowerCase();
     var rows = (catalogData[currentCat] || []).filter(function (item) {
       return !q || item.name.toLowerCase().indexOf(q) !== -1 || item.desc.toLowerCase().indexOf(q) !== -1;
     });
     if (!rows.length) {
-      catalogList.innerHTML = '<li class="catalog-empty">По запросу «' + q.replace(/[<>&"]/g, "") + '» ничего не найдено</li>';
+      var emptyLi = document.createElement("li");
+      emptyLi.className = "catalog-empty";
+      emptyLi.textContent = "По запросу «" + q + "» ничего не найдено";
+      catalogList.appendChild(emptyLi);
       return;
     }
-    catalogList.innerHTML = rows.map(function (item) {
-      var btnClass = item.installed ? "btn btn-sm btn-installed" : "btn btn-sm btn-primary";
-      var btnText = item.installed ? "Установлен" : "Установить";
-      return (
-        '<li class="catalog-item">' +
-          '<span class="ci-icon" style="background:' + item.bg + '">' + item.letter + '</span>' +
-          '<span class="ci-text"><strong>' + item.name + '</strong><span>' + item.desc + '</span></span>' +
-          '<button type="button" class="' + btnClass + '" data-item-name="' + item.name + '">' + btnText + '</button>' +
-        '</li>'
-      );
-    }).join("");
+    rows.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "catalog-item";
+
+      var icon = document.createElement("span");
+      icon.className = "ci-icon";
+      icon.style.background = item.bg;
+      icon.textContent = item.letter;
+
+      var textWrap = document.createElement("span");
+      textWrap.className = "ci-text";
+      var strong = document.createElement("strong");
+      strong.textContent = item.name;
+      var sub = document.createElement("span");
+      sub.textContent = item.desc;
+      textWrap.appendChild(strong);
+      textWrap.appendChild(sub);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = item.installed ? "btn btn-sm btn-installed" : "btn btn-sm btn-primary";
+      btn.setAttribute("data-item-name", item.name);
+      btn.textContent = item.installed ? "Установлен" : "Установить";
+
+      li.appendChild(icon);
+      li.appendChild(textWrap);
+      li.appendChild(btn);
+      catalogList.appendChild(li);
+    });
   }
 
   if (modnestDemo) {
@@ -383,4 +407,83 @@
       });
     });
   });
+
+  // 7. Локальная проверка подлинности файла по SHA-256 через Web Crypto API (без отправки в сеть)
+  var officialHashes = {
+    "4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3": "Lumina-Setup-1.0.0.exe (Установщик v1.0.0)",
+    "e596632ed4664827bb9f1937001605c85f34cd7b1ac4ae0b8adfa20742f4e07b": "Lumina-1.0.0.zip (Portable-архив v1.0.0)",
+    "c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507": "Lumina.exe (Исполняемый файл лаунчера v1.0.0)"
+  };
+
+  var verifyDrop = document.getElementById("verify-dropzone");
+  var verifyInput = document.getElementById("verify-file-input");
+  var verifyPickBtn = document.getElementById("verify-pick-btn");
+  var verifyTitle = document.getElementById("verify-title");
+  var verifyStatus = document.getElementById("verify-status");
+  var localVerifier = document.getElementById("local-verifier");
+
+  function verifyFileHash(file) {
+    if (!file || !window.crypto || !window.crypto.subtle) return;
+    if (localVerifier) localVerifier.setAttribute("data-verify-state", "checking");
+    if (verifyTitle) verifyTitle.textContent = "Вычисление SHA-256 для «" + file.name + "»…";
+    if (verifyStatus) verifyStatus.textContent = "Проверка выполняется локально в браузере…";
+
+    file.arrayBuffer().then(function (buf) {
+      return window.crypto.subtle.digest("SHA-256", buf);
+    }).then(function (hashBuf) {
+      var bytes = new Uint8Array(hashBuf);
+      var hex = "";
+      for (var i = 0; i < bytes.length; i++) {
+        hex += ("00" + bytes[i].toString(16)).slice(-2);
+      }
+      var match = officialHashes[hex];
+      if (match) {
+        if (localVerifier) localVerifier.setAttribute("data-verify-state", "ok");
+        if (verifyTitle) verifyTitle.textContent = "✓ Подлинность подтверждена: " + match;
+        if (verifyStatus) verifyStatus.textContent = "SHA-256 полностью совпадает с эталоном: " + hex;
+      } else {
+        if (localVerifier) localVerifier.setAttribute("data-verify-state", "mismatch");
+        if (verifyTitle) verifyTitle.textContent = "⚠ Контрольная сумма не совпадает с релизом 1.0.0";
+        if (verifyStatus) verifyStatus.textContent = "Вычисленный SHA-256 файла «" + file.name + "»: " + hex;
+      }
+    }).catch(function () {
+      if (localVerifier) localVerifier.setAttribute("data-verify-state", "mismatch");
+      if (verifyTitle) verifyTitle.textContent = "Не удалось прочитать файл";
+    });
+  }
+
+  if (verifyDrop && verifyInput) {
+    verifyDrop.addEventListener("click", function () { verifyInput.click(); });
+    verifyDrop.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        verifyInput.click();
+      }
+    });
+    if (verifyPickBtn) {
+      verifyPickBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        verifyInput.click();
+      });
+    }
+    verifyInput.addEventListener("change", function () {
+      if (verifyInput.files && verifyInput.files[0]) {
+        verifyFileHash(verifyInput.files[0]);
+      }
+    });
+    verifyDrop.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      if (localVerifier) localVerifier.classList.add("dragover");
+    });
+    verifyDrop.addEventListener("dragleave", function () {
+      if (localVerifier) localVerifier.classList.remove("dragover");
+    });
+    verifyDrop.addEventListener("drop", function (e) {
+      e.preventDefault();
+      if (localVerifier) localVerifier.classList.remove("dragover");
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+        verifyFileHash(e.dataTransfer.files[0]);
+      }
+    });
+  }
 })();

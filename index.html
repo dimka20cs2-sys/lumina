@@ -15,16 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem("lumina-theme");
-        if (t === "emerald" || t === "indigo" || t === "dark" || t === "lumina") {
-          document.documentElement.setAttribute("data-theme", t);
-        }
-      } catch (e) {}
-    })();
-  </script>
+  <script src="assets/js/theme-init.js"></script>
   <link rel="stylesheet" href="assets/css/argon-lumina.css">
 </head>
 <body>
@@ -554,6 +545,45 @@
             <p class="text-muted">Интерфейс изолирован на виртуальном хосте <code>https://app.local</code> под строгой политикой <code>Content-Security-Policy</code> без внешних скриптов, телеметрии и фоновых служб, а установщик сам проверяет <code>SHA-256</code> при распаковке.</p>
           </div>
         </div>
+
+        <div class="sec-allowlist-box reveal mt-4">
+          <div class="sec-allowlist-head">
+            <div>
+              <span class="badge badge-pill badge-success mb-2">Zero Telemetry · Строгий белый список</span>
+              <h5>Сетевая прозрачность: куда обращается Lumina</h5>
+              <p class="text-muted mb-0">В исходном коде жёстко зафиксирован список разрешённых доменов (<code>AllowedHosts</code> и <code>PackHosts</code>). Любые сторонние хосты, аналитика, реклама и обход путей (<code>Zip-Slip / Path Traversal</code>) блокируются на уровне ядра.</p>
+            </div>
+          </div>
+          <div class="sec-domains-grid">
+            <div class="sec-domain-group">
+              <strong>Авторизация Microsoft &amp; Xbox Live</strong>
+              <code>login.microsoftonline.com</code>
+              <code>user.auth.xboxlive.com</code>
+              <code>xsts.auth.xboxlive.com</code>
+              <code>api.minecraftservices.com</code>
+            </div>
+            <div class="sec-domain-group">
+              <strong>Официальные серверы Mojang</strong>
+              <code>piston-meta.mojang.com</code>
+              <code>piston-data.mojang.com</code>
+              <code>libraries.minecraft.net</code>
+              <code>resources.download.minecraft.net</code>
+            </div>
+            <div class="sec-domain-group">
+              <strong>Загрузчики модов</strong>
+              <code>meta.fabricmc.net · maven.fabricmc.net</code>
+              <code>meta.quiltmc.org · maven.quiltmc.org</code>
+              <code>maven.neoforged.net</code>
+              <code>maven.minecraftforge.net</code>
+            </div>
+            <div class="sec-domain-group">
+              <strong>Каталог Modrinth (SHA-512)</strong>
+              <code>api.modrinth.com</code>
+              <code>cdn.modrinth.com</code>
+              <span>Каждый <code>.jar</code> / <code>.mrpack</code> сверяется по SHA-512</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -655,6 +685,22 @@
                       <span class="hash-label">Lumina.exe (Лаунчер)</span>
                       <code id="exe-sha256">c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507</code>
                       <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="exe-sha256">Скопировать</button>
+                    </div>
+                    <div class="hash-row">
+                      <span class="hash-label">Проверка в PowerShell</span>
+                      <code id="ps-verify-cmd">Get-FileHash .\Lumina-Setup-1.0.0.exe -Algorithm SHA256</code>
+                      <button type="button" class="btn btn-sm btn-outline-white copy-hash-btn" data-copy-target="ps-verify-cmd">Скопировать</button>
+                    </div>
+                  </div>
+                  <div class="local-verifier" id="local-verifier">
+                    <input type="file" id="verify-file-input" accept=".exe,.zip" hidden>
+                    <div class="local-verifier-body" id="verify-dropzone" role="button" tabindex="0" aria-label="Проверить скачанный файл по SHA-256">
+                      <span class="icon icon-sm icon-shape icon-shape-success"><svg><use href="#i-shield"/></svg></span>
+                      <div class="local-verifier-text">
+                        <strong id="verify-title">Мгновенная проверка подлинности файла в браузере (Web Crypto SHA-256)</strong>
+                        <span id="verify-status">Перетащите сюда скачанный <code>Lumina-Setup-1.0.0.exe</code>, <code>Lumina-1.0.0.zip</code> или <code>Lumina.exe</code> (или нажмите для выбора) — хеш вычислится локально на вашем ПК без загрузки в сеть.</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-outline-white" id="verify-pick-btn">Выбрать файл…</button>
                     </div>
                   </div>
                 </div>
