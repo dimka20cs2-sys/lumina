@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <!-- Sky Gradient -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#180b2b"/>
+      <stop offset="25%" stop-color="#341357"/>
+      <stop offset="48%" stop-color="#692275"/>
+      <stop offset="68%" stop-color="#b43b6e"/>
+      <stop offset="84%" stop-color="#e8615b"/>
+      <stop offset="94%" stop-color="#f69d58"/>
+      <stop offset="100%" stop-color="#ffd57c"/>
+    </linearGradient>
+
+    <!-- Sun / Horizon Glow -->
+    <radialGradient id="sunGlow" cx="620" cy="740" r="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffe494" stop-opacity="0.9"/>
+      <stop offset="20%" stop-color="#fca859" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#e24e68" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#692275" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Beacon Beam -->
+    <linearGradient id="beaconGrad" x1="1380" y1="780" x2="1380" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7cf7d8" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#6fe2ee" stop-opacity="0.6"/>
+      <stop offset="75%" stop-color="#ba68c8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#e085c2" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="beaconCoreGlow" cx="1380" cy="780" r="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a8fff0" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#55eed0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#23103b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Window Light Glow -->
+    <radialGradient id="windowGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fff1a8" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#ffb834" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#f26938" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Mountain Gradients -->
+    <linearGradient id="mountFar" x1="0" y1="500" x2="0" y2="850" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#461d56"/>
+      <stop offset="100%" stop-color="#8a3565"/>
+    </linearGradient>
+    <linearGradient id="mountMid" x1="0" y1="580" x2="0" y2="920" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2a123e"/>
+      <stop offset="100%" stop-color="#4e1b52"/>
+    </linearGradient>
+    <linearGradient id="mountSnow" x1="0" y1="480" x2="0" y2="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffdbe3"/>
+      <stop offset="100%" stop-color="#e491a6"/>
+    </linearGradient>
+
+    <!-- Foreground Terrain Gradients -->
+    <linearGradient id="terrainDark" x1="0" y1="700" x2="0" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f112e"/>
+      <stop offset="50%" stop-color="#140a1f"/>
+      <stop offset="100%" stop-color="#0b0612"/>
+    </linearGradient>
+    <linearGradient id="grassRim" x1="0" y1="720" x2="0" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f8955d"/>
+      <stop offset="40%" stop-color="#a4485c"/>
+      <stop offset="100%" stop-color="#3c1c45"/>
+    </linearGradient>
+
+    <!-- Vignette Overlay to ensure text readability -->
+    <linearGradient id="vignetteBottom" x1="0" y1="400" x2="0" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f0f12" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#111116" stop-opacity="0.45"/>
+      <stop offset="85%" stop-color="#15151a" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#17171d" stop-opacity="0.97"/>
+    </linearGradient>
+
+    <linearGradient id="vignetteLeft" x1="0" y1="0" x2="700" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#121217" stop-opacity="0.75"/>
+      <stop offset="60%" stop-color="#121217" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#121217" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Sparkle Symbol -->
+    <g id="sparkle">
+      <path d="M0 -14 C0 -4 4 0 14 0 C4 0 0 4 0 14 C0 4 -4 0 -14 0 C-4 0 0 -4 0 -14 Z" fill="#fff" opacity="0.9"/>
+      <circle cx="0" cy="0" r="3" fill="#ffeaa7"/>
+    </g>
+
+    <!-- Minecraft Taiga Pine Tree -->
+    <g id="taigaTree">
+      <!-- Trunk -->
+      <rect x="18" y="70" width="12" height="50" fill="#362214"/>
+      <rect x="24" y="70" width="6" height="50" fill="#24160d"/>
+      <!-- Foliage blocky layers -->
+      <polygon points="24,0 44,28 36,28 48,54 40,54 52,76 -4,76 8,54 0,54 12,28 4,28" fill="#1b3d2b"/>
+      <!-- Highlight side -->
+      <polygon points="24,0 44,28 36,28 48,54 40,54 52,76 24,76 24,54 24,28" fill="#29573f" opacity="0.5"/>
+      <polygon points="24,0 24,76 20,76 8,54 16,54 4,28 12,28" fill="#10251a" opacity="0.6"/>
+    </g>
+
+    <!-- Minecraft Cherry Blossom Tree -->
+    <g id="cherryTree">
+      <rect x="26" y="55" width="14" height="45" fill="#42251a"/>
+      <rect x="33" y="55" width="7" height="45" fill="#2c170f"/>
+      <!-- Blocky pink leaves -->
+      <rect x="4" y="24" width="58" height="24" rx="3" fill="#f88ca4"/>
+      <rect x="14" y="8" width="40" height="20" rx="3" fill="#ffaec1"/>
+      <rect x="22" y="0" width="24" height="12" rx="2" fill="#ffd4de"/>
+      <!-- Shadows -->
+      <rect x="4" y="38" width="58" height="10" fill="#cf5c77" opacity="0.6"/>
+      <rect x="34" y="8" width="20" height="38" fill="#e5718c" opacity="0.4"/>
+    </g>
+
+    <!-- Floating Cloud Step Block -->
+    <g id="voxelCloud">
+      <rect x="0" y="0" width="140" height="28" rx="2" fill="#ffffff" opacity="0.85"/>
+      <rect x="30" y="28" width="90" height="18" rx="2" fill="#ffd4b8" opacity="0.8"/>
+      <rect x="0" y="20" width="140" height="8" fill="#f4928e" opacity="0.5"/>
+      <rect x="30" y="40" width="90" height="6" fill="#c7506f" opacity="0.6"/>
+    </g>
+  </defs>
+
+  <!-- SKY BACKGROUND -->
+  <rect width="1920" height="1080" fill="url(#skyGrad)"/>
+
+  <!-- SUN / HORIZON AMBIENT GLOW -->
+  <circle cx="680" cy="740" r="500" fill="url(#sunGlow)"/>
+
+  <!-- STARS & CONSTELLATIONS -->
+  <g id="stars" opacity="0.8">
+    <circle cx="120" cy="90" r="2" fill="#fff" opacity="0.8"/>
+    <circle cx="210" cy="180" r="1.5" fill="#ffd1dc" opacity="0.9"/>
+    <circle cx="340" cy="80" r="2.5" fill="#fff" opacity="0.7"/>
+    <circle cx="480" cy="140" r="1.8" fill="#fff"/>
+    <circle cx="620" cy="95" r="2" fill="#ffeaa7"/>
+    <circle cx="790" cy="160" r="1.5" fill="#fff" opacity="0.85"/>
+    <circle cx="910" cy="70" r="2.2" fill="#fff"/>
+    <circle cx="1060" cy="130" r="1.5" fill="#ffd1dc"/>
+    <circle cx="1180" cy="60" r="2" fill="#fff"/>
+    <circle cx="1320" cy="110" r="2.5" fill="#ffeaa7"/>
+    <circle cx="1490" cy="85" r="1.8" fill="#fff"/>
+    <circle cx="1640" cy="150" r="2" fill="#fff" opacity="0.9"/>
+    <circle cx="1780" cy="100" r="2.5" fill="#ffd1dc"/>
+    <circle cx="1860" cy="170" r="1.5" fill="#fff"/>
+
+    <!-- Second layer smaller stars -->
+    <circle cx="160" cy="240" r="1" fill="#fff" opacity="0.6"/>
+    <circle cx="290" cy="290" r="1.2" fill="#fff" opacity="0.5"/>
+    <circle cx="430" cy="220" r="1" fill="#fff" opacity="0.6"/>
+    <circle cx="720" cy="270" r="1.2" fill="#fff" opacity="0.7"/>
+    <circle cx="850" cy="230" r="1" fill="#fff" opacity="0.5"/>
+    <circle cx="1140" cy="260" r="1" fill="#fff" opacity="0.6"/>
+    <circle cx="1270" cy="210" r="1.2" fill="#fff" opacity="0.8"/>
+    <circle cx="1550" cy="240" r="1" fill="#fff" opacity="0.6"/>
+    <circle cx="1710" cy="280" r="1.2" fill="#fff" opacity="0.7"/>
+
+    <!-- Hero Lumina Sparkle Stars in Sky -->
+    <use href="#sparkle" x="380" y="110" transform="scale(0.8)"/>
+    <use href="#sparkle" x="1240" y="80" transform="scale(0.7)"/>
+    <use href="#sparkle" x="1680" y="90" transform="scale(0.9)"/>
+    <use href="#sparkle" x="980" y="150" transform="scale(0.55)"/>
+  </g>
+
+  <!-- SQUARE MINECRAFT MOON -->
+  <g transform="translate(1480, 110)">
+    <!-- Soft Glow -->
+    <rect x="-15" y="-15" width="110" height="110" rx="20" fill="#fff" opacity="0.08"/>
+    <rect x="-6" y="-6" width="92" height="92" rx="10" fill="#ffe7cf" opacity="0.18"/>
+    <!-- Moon Body -->
+    <rect x="0" y="0" width="80" height="80" fill="#fff9f0"/>
+    <!-- Craters -->
+    <rect x="12" y="14" width="16" height="18" fill="#e8d8cc"/>
+    <rect x="42" y="20" width="22" height="16" fill="#e8d8cc"/>
+    <rect x="18" y="46" width="26" height="20" fill="#e8d8cc"/>
+    <rect x="52" y="50" width="16" height="16" fill="#dfcbbe"/>
+  </g>
+
+  <!-- VOXEL CLOUDS (Layers) -->
+  <g opacity="0.75">
+    <!-- High thin clouds -->
+    <use href="#voxelCloud" x="120" y="240" transform="scale(1.2 0.8)"/>
+    <use href="#voxelCloud" x="780" y="190" transform="scale(1.5 0.9)"/>
+    <use href="#voxelCloud" x="1340" y="270" transform="scale(1.3 0.8)"/>
+    <!-- Mid sunset clouds catching vibrant coral light -->
+    <g transform="translate(420, 380)">
+      <rect x="0" y="0" width="260" height="40" rx="3" fill="#ffccd4" opacity="0.9"/>
+      <rect x="40" y="40" width="180" height="26" rx="3" fill="#f88ca4" opacity="0.85"/>
+      <rect x="80" y="66" width="110" height="18" rx="2" fill="#c4466b" opacity="0.7"/>
+    </g>
+    <g transform="translate(1080, 420)">
+      <rect x="0" y="0" width="310" height="44" rx="3" fill="#fed2b6" opacity="0.9"/>
+      <rect x="50" y="44" width="210" height="28" rx="3" fill="#f48467" opacity="0.85"/>
+      <rect x="100" y="72" width="130" height="18" rx="2" fill="#a4335c" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- DISTANT BLOCKY MOUNTAINS (Background layer) -->
+  <path d="M-50 780 
+           L80 710 L160 710 L230 650 L340 650 L410 590 L520 590 L610 530 L690 530 L760 480 L840 480 L920 540 L1020 540 L1090 610 L1180 610 L1250 560 L1340 560 L1420 510 L1510 510 L1600 580 L1700 580 L1810 660 L1950 660 L1980 1080 L-50 1080 Z" 
+        fill="url(#mountFar)"/>
+
+  <!-- Distant Mountain Snow Caps -->
+  <polygon points="760,480 840,480 880,510 820,530 790,510 740,530" fill="url(#mountSnow)" opacity="0.85"/>
+  <polygon points="1420,510 1510,510 1540,535 1480,550 1450,530 1400,545" fill="url(#mountSnow)" opacity="0.85"/>
+  <polygon points="610,530 690,530 720,555 660,570 630,550" fill="url(#mountSnow)" opacity="0.75"/>
+
+  <!-- MIDGROUND MOUNTAINS (Stepped Minecraft voxel ridge) -->
+  <path d="M-20 860
+           L60 810 L140 810 L200 760 L300 760 L370 700 L460 700 L540 640 L640 640 L710 690 L800 690 L880 740 L970 740 L1050 690 L1150 690 L1240 630 L1320 630 L1390 680 L1490 680 L1580 730 L1690 730 L1790 790 L1940 790 L1950 1080 L-20 1080 Z"
+        fill="url(#mountMid)"/>
+
+  <!-- Stepped Ridge Highlights -->
+  <path d="M540 640 L640 640 L640 655 L540 655 Z" fill="#b84c75" opacity="0.8"/>
+  <path d="M370 700 L460 700 L460 715 L370 715 Z" fill="#b84c75" opacity="0.7"/>
+  <path d="M1240 630 L1320 630 L1320 645 L1240 645 Z" fill="#e26a79" opacity="0.8"/>
+  <path d="M1050 690 L1150 690 L1150 705 L1050 705 Z" fill="#c7506f" opacity="0.7"/>
+
+  <!-- BEACON IN DISTANT VALLEY -->
+  <circle cx="1380" cy="780" r="140" fill="url(#beaconCoreGlow)"/>
+  <rect x="1368" y="0" width="24" height="780" fill="url(#beaconGrad)"/>
+  <!-- Beacon Base Structure -->
+  <rect x="1348" y="770" width="64" height="24" fill="#3cd6be" rx="2"/>
+  <rect x="1356" y="760" width="48" height="12" fill="#a4fff3" rx="1"/>
+  <!-- Beacon Rings floating up -->
+  <ellipse cx="1380" cy="660" rx="32" ry="8" fill="none" stroke="#7df5dc" stroke-width="3" opacity="0.7"/>
+  <ellipse cx="1380" cy="520" rx="26" ry="6" fill="none" stroke="#b279dc" stroke-width="2.5" opacity="0.6"/>
+  <ellipse cx="1380" cy="380" rx="20" ry="5" fill="none" stroke="#f686be" stroke-width="2" opacity="0.5"/>
+
+  <!-- MID-GROUND FORESTS (Taiga and Cherry clusters) -->
+  <g>
+    <!-- Distant Pine silhouetts -->
+    <use href="#taigaTree" x="180" y="660" transform="scale(0.85)"/>
+    <use href="#taigaTree" x="240" y="670" transform="scale(0.9)"/>
+    <use href="#taigaTree" x="310" y="650" transform="scale(0.8)"/>
+    <use href="#taigaTree" x="680" y="610" transform="scale(0.75)"/>
+    <use href="#taigaTree" x="740" y="620" transform="scale(0.85)"/>
+    <use href="#taigaTree" x="800" y="630" transform="scale(0.7)"/>
+
+    <!-- Midground Taiga & Cherry Blossom Grove -->
+    <use href="#cherryTree" x="860" y="670" transform="scale(1.1)"/>
+    <use href="#cherryTree" x="920" y="680" transform="scale(0.95)"/>
+    <use href="#cherryTree" x="990" y="660" transform="scale(1.2)"/>
+
+    <use href="#taigaTree" x="1170" y="615" transform="scale(0.9)"/>
+    <use href="#taigaTree" x="1230" y="630" transform="scale(0.8)"/>
+    <use href="#taigaTree" x="1460" y="660" transform="scale(1)"/>
+    <use href="#taigaTree" x="1530" y="650" transform="scale(1.15)"/>
+    <use href="#cherryTree" x="1600" y="690" transform="scale(1.1)"/>
+  </g>
+
+  <!-- FOREGROUND CLIFF & COZY MINECRAFT CABIN (Right Side) -->
+  <g>
+    <!-- Stepped Cliff Blocks -->
+    <path d="M1020 1080 
+             L1020 900 L1110 900 L1110 850 L1200 850 L1200 810 L1320 810 L1320 780 L1490 780 L1490 750 L1740 750 L1740 790 L1840 790 L1840 840 L1940 840 L1940 1080 Z"
+          fill="url(#terrainDark)"/>
+
+    <!-- Cliff Grass Rim Top (Luminescent sunset grass edge) -->
+    <path d="M1020 900 L1110 900 L1110 850 L1200 850 L1200 810 L1320 810 L1320 780 L1490 780 L1490 750 L1740 750 L1740 790 L1840 790 L1840 840 L1940 840" 
+          fill="none" stroke="url(#grassRim)" stroke-width="8" stroke-linejoin="miter"/>
+
+    <!-- Left Foreground Hill / Plateau -->
+    <path d="M-30 1080
+             L-30 840 L90 840 L90 800 L210 800 L210 760 L360 760 L360 790 L480 790 L480 830 L620 830 L620 880 L760 880 L760 940 L920 940 L920 1080 Z"
+          fill="url(#terrainDark)"/>
+    <path d="M-30 840 L90 840 L90 800 L210 800 L210 760 L360 760 L360 790 L480 790 L480 830 L620 830 L620 880 L760 880 L760 940 L920 940" 
+          fill="none" stroke="url(#grassRim)" stroke-width="7" stroke-linejoin="miter"/>
+
+    <!-- Foreground Big Pine on Left -->
+    <use href="#taigaTree" x="60" y="650" transform="scale(1.8)"/>
+    <use href="#taigaTree" x="180" y="670" transform="scale(1.5)"/>
+    <use href="#cherryTree" x="320" y="690" transform="scale(1.6)"/>
+
+    <!-- COZY OUTPOST / WATCHTOWER (Minecraft Cabin) on the right cliff -->
+    <g transform="translate(1520, 610)">
+      <!-- Stone Brick Foundation -->
+      <rect x="20" y="90" width="130" height="50" fill="#44434a" stroke="#2b2a30" stroke-width="2"/>
+      <rect x="25" y="95" width="35" height="20" fill="#5a5862"/>
+      <rect x="65" y="105" width="40" height="20" fill="#5a5862"/>
+      <rect x="110" y="95" width="35" height="20" fill="#36353b"/>
+
+      <!-- Oak Wood Planks Body -->
+      <rect x="20" y="25" width="130" height="65" fill="#8f6642"/>
+      <!-- Wood log corner pillars -->
+      <rect x="20" y="25" width="16" height="65" fill="#5a3d25"/>
+      <rect x="134" y="25" width="16" height="65" fill="#5a3d25"/>
+
+      <!-- Glowing Window 1 -->
+      <rect x="46" y="38" width="32" height="32" fill="#ffeaa7" stroke="#3d2715" stroke-width="3"/>
+      <!-- Window panes cross -->
+      <line x1="62" y1="38" x2="62" y2="70" stroke="#3d2715" stroke-width="2"/>
+      <line x1="46" y1="54" x2="78" y2="54" stroke="#3d2715" stroke-width="2"/>
+      <!-- Window 1 Radial Light Glow -->
+      <circle cx="62" cy="54" r="50" fill="url(#windowGlow)"/>
+
+      <!-- Glowing Window 2 -->
+      <rect x="92" y="38" width="32" height="32" fill="#ffeaa7" stroke="#3d2715" stroke-width="3"/>
+      <line x1="108" y1="38" x2="108" y2="70" stroke="#3d2715" stroke-width="2"/>
+      <line x1="92" y1="54" x2="124" y2="54" stroke="#3d2715" stroke-width="2"/>
+      <!-- Window 2 Radial Light Glow -->
+      <circle cx="108" cy="54" r="50" fill="url(#windowGlow)"/>
+
+      <!-- Stepped Voxel Roof (Spruce wood) -->
+      <polygon points="10,25 85,-25 160,25" fill="#462c19"/>
+      <polygon points="10,25 85,-25 85,25" fill="#573822"/>
+      <polygon points="10,25 0,25 0,32 10,32" fill="#352011"/>
+      <polygon points="160,25 170,25 170,32 160,32" fill="#352011"/>
+
+      <!-- Chimney with smoke -->
+      <rect x="120" y="-15" width="18" height="28" fill="#525059"/>
+      <rect x="117" y="-20" width="24" height="6" fill="#3a383e"/>
+      <!-- Voxel Smoke Puffs drifting left in twilight -->
+      <rect x="122" y="-36" width="12" height="10" rx="2" fill="#f8e5ee" opacity="0.7"/>
+      <rect x="114" y="-54" width="16" height="12" rx="2" fill="#f8e5ee" opacity="0.5"/>
+      <rect x="100" y="-76" width="20" height="14" rx="3" fill="#f8e5ee" opacity="0.35"/>
+      <rect x="85" y="-102" width="26" height="16" rx="4" fill="#f8e5ee" opacity="0.2"/>
+
+      <!-- Outdoor Hanging Lantern on post -->
+      <rect x="0" y="55" width="6" height="30" fill="#553922"/>
+      <rect x="0" y="55" width="18" height="4" fill="#333"/>
+      <!-- Lantern body -->
+      <rect x="12" y="59" width="10" height="12" fill="#ffbe3b" stroke="#222" stroke-width="1.5"/>
+      <circle cx="17" cy="65" r="30" fill="url(#windowGlow)"/>
+    </g>
+
+    <!-- Campfire & Embers on the lower cliff (x: 1420, y: 760) -->
+    <g transform="translate(1420, 755)">
+      <!-- Logs -->
+      <rect x="0" y="18" width="30" height="6" rx="2" fill="#3e2515" transform="rotate(15 15 21)"/>
+      <rect x="0" y="18" width="30" height="6" rx="2" fill="#2d1a0e" transform="rotate(-15 15 21)"/>
+      <!-- Fire flame voxel blocks -->
+      <rect x="8" y="6" width="14" height="16" rx="2" fill="#f97316"/>
+      <rect x="11" y="2" width="8" height="12" rx="1" fill="#fde047"/>
+      <!-- Campfire Glow -->
+      <circle cx="15" cy="12" r="60" fill="url(#windowGlow)" opacity="0.85"/>
+      <!-- Floating Fire Embers -->
+      <rect x="6" y="-8" width="3" height="3" fill="#ffd043"/>
+      <rect x="18" y="-16" width="2.5" height="2.5" fill="#ff7643"/>
+      <rect x="12" y="-28" width="2" height="2" fill="#ffd043"/>
+      <rect x="22" y="-42" width="2.5" height="2.5" fill="#f97316"/>
+    </g>
+  </g>
+
+  <!-- FLOATING LUMINA SPARKLES IN AIR (Matching Logo brand theme) -->
+  <g>
+    <use href="#sparkle" x="540" y="720" transform="scale(0.85)"/>
+    <use href="#sparkle" x="720" y="780" transform="scale(0.65)"/>
+    <use href="#sparkle" x="980" y="820" transform="scale(0.75)"/>
+    <use href="#sparkle" x="1280" y="720" transform="scale(0.6)"/>
+    <use href="#sparkle" x="1460" y="710" transform="scale(0.9)"/>
+  </g>
+
+  <!-- VIGNETTE OVERLAYS FOR MAXIMUM UI LEGIBILITY & CONTRAST -->
+  <!-- Bottom dark vignette gradient (gives clean background for controls and progress bar) -->
+  <rect width="1920" height="1080" fill="url(#vignetteBottom)"/>
+
+  <!-- Left side subtle vignette (for sidebar contrast and clean typography) -->
+  <rect width="700" height="1080" fill="url(#vignetteLeft)"/>
+
+  <!-- Subtle overall perimeter frame gradient -->
+  <rect width="1920" height="1080" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="2"/>
+</svg>
