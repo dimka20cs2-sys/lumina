@@ -9,12 +9,22 @@
   <meta property="og:title" content="Lumina — лаунчер Minecraft">
   <meta property="og:description" content="Моды, скины, серверы и миры — в одном окне. Бесплатно для Windows.">
   <meta property="og:image" content="assets/img/lumina-512.png">
-  <link rel="icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="assets/img/lumina-512.png">
+  <link rel="icon" id="site-favicon" href="assets/img/lumina-512.png" type="image/png">
+  <link rel="apple-touch-icon" id="site-apple-icon" href="assets/img/lumina-512.png">
   <!-- Manrope (заголовки) и Inter (текст) с поддержкой кириллицы -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("lumina-theme");
+        if (t === "emerald" || t === "indigo" || t === "dark" || t === "lumina") {
+          document.documentElement.setAttribute("data-theme", t);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="assets/css/argon-lumina.css">
 </head>
 <body>
@@ -50,7 +60,7 @@
   <nav class="navbar" id="navbar">
     <div class="container">
       <a class="navbar-brand" href="#top">
-        <img src="assets/img/lumina-512.png" alt="">
+        <img src="assets/img/lumina-512.png" data-theme-logo alt="Lumina">
         <span>Lumina<small>by AkeeTech</small></span>
       </a>
       <button class="navbar-toggler" id="nav-toggle" aria-label="Меню" aria-expanded="false">
@@ -63,6 +73,26 @@
           <li><a class="nav-link" href="#modnest">Моды</a></li>
           <li><a class="nav-link" href="#more">Ещё</a></li>
           <li><a class="nav-link" href="#faq">Вопросы</a></li>
+          <li class="theme-switcher-item">
+            <div class="theme-switcher" role="group" aria-label="Выбор темы">
+              <button type="button" class="theme-btn active" data-set-theme="lumina" title="Классика (Закат)">
+                <img src="assets/img/lumina-512.png" alt="">
+                <span>Закат</span>
+              </button>
+              <button type="button" class="theme-btn" data-set-theme="emerald" title="Зелёный градиент">
+                <img src="assets/img/lumina-emerald.png" alt="">
+                <span>Зелёный</span>
+              </button>
+              <button type="button" class="theme-btn" data-set-theme="indigo" title="Индиго">
+                <img src="assets/img/lumina-indigo.png" alt="">
+                <span>Индиго</span>
+              </button>
+              <button type="button" class="theme-btn" data-set-theme="dark" title="Тёмный градиент">
+                <img src="assets/img/lumina-dark.png" alt="">
+                <span>Тёмный</span>
+              </button>
+            </div>
+          </li>
           <li><a class="btn btn-neutral btn-icon" href="#download"><svg><use href="#i-download"/></svg>Скачать</a></li>
         </ul>
       </div>
@@ -105,7 +135,7 @@
                 <div class="mockup-bar"><i></i><i></i><i></i><b>Lumina — v1.0.0</b></div>
                 <div class="mockup-body">
                   <div class="mockup-side">
-                    <div class="m-logo"><img src="assets/img/lumina-512.png" alt="">Lumina</div>
+                    <div class="m-logo"><img src="assets/img/lumina-512.png" data-theme-logo alt="">Lumina</div>
                     <button type="button" class="m-item active" data-m-view="play"><i></i>Играть</button>
                     <button type="button" class="m-item" data-m-view="instances"><i></i>Инсталляции</button>
                     <button type="button" class="m-item" data-m-view="mods"><i></i>Моды</button>
@@ -544,7 +574,7 @@
               <div class="card-body">
                 <div class="row align-items-center">
                   <div class="col-lg-3 text-center">
-                    <img class="download-logo" src="assets/img/lumina-512.png" alt="Логотип Lumina">
+                    <img class="download-logo" src="assets/img/lumina-512.png" data-theme-logo alt="Логотип Lumina">
                   </div>
                   <div class="col-lg-6">
                     <h3 class="display-4 mb-0 mt-4">Скачайте Lumina</h3>
@@ -573,7 +603,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <a class="footer-brand" href="#top"><img src="assets/img/lumina-512.png" alt="">Lumina</a>
+          <a class="footer-brand" href="#top"><img src="assets/img/lumina-512.png" data-theme-logo alt="">Lumina</a>
           <div class="copyright mt-3">© <span id="year">2026</span> AkeeTech. Не является официальным продуктом Minecraft и не связан с Mojang или Microsoft.</div>
         </div>
         <div class="col-md-6">

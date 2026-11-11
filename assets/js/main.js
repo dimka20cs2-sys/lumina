@@ -1,6 +1,46 @@
-// Lumina — сайт. Навигация, появление при прокрутке и интерактивные демо-блоки.
+// Lumina — сайт. Навигация, переключение тем и иконок, появление при прокрутке и интерактивные демо-блоки.
 (function () {
   "use strict";
+
+  // 0. Переключение тем оформления (Классика, Зелёный градиент, Индиго, Тёмный градиент) и смена иконки
+  var themeLogos = {
+    lumina: "assets/img/lumina-512.png",
+    emerald: "assets/img/lumina-emerald.png",
+    indigo: "assets/img/lumina-indigo.png",
+    dark: "assets/img/lumina-dark.png"
+  };
+
+  function applyTheme(theme) {
+    if (!themeLogos[theme]) theme = "lumina";
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("lumina-theme", theme); } catch (e) {}
+
+    var iconSrc = themeLogos[theme];
+    document.querySelectorAll("[data-theme-logo]").forEach(function (img) {
+      img.setAttribute("src", iconSrc);
+    });
+    var fav = document.getElementById("site-favicon");
+    var apple = document.getElementById("site-apple-icon");
+    if (fav) fav.setAttribute("href", iconSrc);
+    if (apple) apple.setAttribute("href", iconSrc);
+
+    document.querySelectorAll("[data-set-theme]").forEach(function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-set-theme") === theme);
+    });
+  }
+
+  var initialTheme = document.documentElement.getAttribute("data-theme") || "lumina";
+  try {
+    var saved = localStorage.getItem("lumina-theme");
+    if (saved && themeLogos[saved]) initialTheme = saved;
+  } catch (e) {}
+  applyTheme(initialTheme);
+
+  document.querySelectorAll("[data-set-theme]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      applyTheme(btn.getAttribute("data-set-theme"));
+    });
+  });
 
   // 1. Навбар: фон при прокрутке, мобильное меню и подсветка активного раздела
   var nav = document.getElementById("navbar");
