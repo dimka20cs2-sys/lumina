@@ -112,7 +112,7 @@
             <p class="lead">Lumina сама скачает игру и Java, поставит Fabric, Quilt, Forge или NeoForge и подберёт моды для оптимизации. Вам остаётся нажать «Играть».</p>
             <div class="hero-actions">
               <a href="#download" class="btn btn-white btn-lg btn-icon"><svg><use href="#i-windows"/></svg>Скачать для Windows</a>
-              <a href="#features" class="btn btn-outline-white btn-lg">Возможности</a>
+              <a href="#trailer" class="btn btn-outline-white btn-lg btn-icon"><svg><use href="#i-play"/></svg>Видео-трейлер</a>
             </div>
             <div class="hero-meta">
               <span><svg><use href="#i-check"/></svg>Windows 10 / 11</span>
@@ -266,6 +266,39 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Видео-трейлер и рекламные ролики ===================== -->
+    <section class="section section-lg bg-secondary" id="trailer">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-4">
+          <div class="col-lg-8 reveal">
+            <span class="badge badge-pill badge-coral mb-3">Официальное промо</span>
+            <h2 class="display-3">Посмотрите Lumina в действии</h2>
+            <p class="lead text-muted">15-секундный промо-ролик со звуком в двух форматах: горизонтальный трейлер (16:9) для YouTube, Telegram и Discord и вертикальный клип (9:16) для TikTok и YouTube Shorts.</p>
+          </div>
+        </div>
+        <div class="trailer-showcase reveal" id="trailer-showcase">
+          <div class="trailer-toolbar">
+            <div class="trailer-tabs" role="tablist" aria-label="Формат промо-видео">
+              <button type="button" class="trailer-tab active" data-video-mode="wide">16:9 · Горизонтальный трейлер (YouTube / Telegram)</button>
+              <button type="button" class="trailer-tab" data-video-mode="vertical">9:16 · Вертикальный ролик (TikTok / Shorts / Reels)</button>
+            </div>
+            <div class="trailer-downloads">
+              <a href="assets/video/Lumina-Promo-16x9.mp4" download class="btn btn-sm btn-primary btn-icon"><svg><use href="#i-download"/></svg>Скачать 16:9 (.MP4)</a>
+              <a href="assets/video/Lumina-Shorts-9x16.mp4" download class="btn btn-sm btn-outline-white btn-icon"><svg><use href="#i-download"/></svg>Скачать 9:16 Shorts (.MP4)</a>
+            </div>
+          </div>
+          <div class="trailer-stage">
+            <div class="trailer-frame active" data-video-panel="wide">
+              <video id="video-wide" src="assets/video/Lumina-Promo-16x9.mp4" poster="assets/img/minecraft-hero.jpg" controls playsinline preload="metadata"></video>
+            </div>
+            <div class="trailer-frame trailer-frame-vertical" data-video-panel="vertical">
+              <video id="video-vertical" src="assets/video/Lumina-Shorts-9x16.mp4" poster="assets/img/minecraft-hero.jpg" controls playsinline preload="metadata"></video>
             </div>
           </div>
         </div>

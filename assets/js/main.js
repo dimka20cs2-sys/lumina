@@ -486,4 +486,25 @@
       }
     });
   }
+
+  // 8. Переключение 16:9 и 9:16 в блоке видео-трейлера
+  var trailerShowcase = document.getElementById("trailer-showcase");
+  if (trailerShowcase) {
+    var tTabs = trailerShowcase.querySelectorAll("[data-video-mode]");
+    var tPanels = trailerShowcase.querySelectorAll("[data-video-panel]");
+    tTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var mode = tab.getAttribute("data-video-mode");
+        tTabs.forEach(function (t) { t.classList.toggle("active", t === tab); });
+        tPanels.forEach(function (p) {
+          var isMatch = p.getAttribute("data-video-panel") === mode;
+          p.classList.toggle("active", isMatch);
+          var vid = p.querySelector("video");
+          if (vid && !isMatch) {
+            try { vid.pause(); } catch (e) {}
+          }
+        });
+      });
+    });
+  }
 })();

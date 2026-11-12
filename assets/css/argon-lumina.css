@@ -995,6 +995,81 @@ ul { margin: 0; }
   .local-verifier-body { flex-direction: column; align-items: flex-start; }
 }
 
+/* ---------- Видео-трейлер (16:9 и 9:16 Shorts) ---------- */
+.trailer-showcase {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+}
+.trailer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.trailer-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  background: rgba(10, 11, 18, 0.7);
+  padding: .35rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.trailer-tab {
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: .84rem;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.trailer-tab.active {
+  background: var(--gradient-brand);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(240, 96, 122, 0.35);
+}
+.trailer-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.trailer-stage {
+  display: flex;
+  justify-content: center;
+  background: rgba(8, 9, 15, 0.85);
+  border-radius: 16px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+.trailer-frame {
+  display: none;
+  width: 100%;
+  max-width: 960px;
+}
+.trailer-frame.active {
+  display: block;
+}
+.trailer-frame video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  background: #090a12;
+}
+.trailer-frame.trailer-frame-vertical {
+  max-width: 360px;
+}
+
 /* ---------- Появление при прокрутке ---------- */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
 .reveal.visible { opacity: 1; transform: none; }
