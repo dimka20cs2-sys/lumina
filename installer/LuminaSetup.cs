@@ -120,6 +120,53 @@ namespace LuminaSetup
                 return sb.ToString();
             }
         }
+
+#if FULL
+        // ---------- Полная (офлайн) версия: встроенные Java Runtime и WebView2 Runtime ----------
+        const string WebView2ClientGuid = "{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
+
+        // Папка данных лаунчера — так же, как в src/Settings.cs: %APPDATA%\.lumina или settings.json → dataDir.
+        public static string LauncherDataRoot()
+        {
+            string config = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".lumina");
+            try
+            {
+                string settings = Path.Combine(config, "settings.json");
+                if (File.Exists(settings))
+                {
+                    var m = System.Text.RegularExpressions.Regex.Match(File.ReadAllText(settings, Encoding.UTF8), "\"dataDir\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
+                    if (m.Success)
+                    {
+                        string d = m.Groups[1].Value.Replace("\\\\", "\\").Trim();
+                        if (d.Length > 0 && Path.IsPathRooted(d)) return d;
+                    }
+                }
+            }
+            catch { }
+            return config;
+        }
+
+        static bool HasVersion(RegistryKey baseKey, string sub)
+        {
+            try
+            {
+                using (var k = baseKey.OpenSubKey(sub))
+                {
+                    var pv = k == null ? null : k.GetValue("pv") as string;
+                    return !string.IsNullOrEmpty(pv) && pv != "0.0.0.0";
+                }
+            }
+            catch { return false; }
+        }
+
+        public static bool IsWebView2Installed()
+        {
+            string wow = @"SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\" + WebView2ClientGuid;
+            string native = @"SOFTWARE\Microsoft\EdgeUpdate\Clients\" + WebView2ClientGuid;
+            string user = @"Software\Microsoft\EdgeUpdate\Clients\" + WebView2ClientGuid;
+            return HasVersion(Registry.LocalMachine, wow) || HasVersion(Registry.LocalMachine, native) || HasVersion(Registry.CurrentUser, user);
+        }
+#endif
     }
 
     class SetupForm : Form
@@ -130,6 +177,10 @@ namespace LuminaSetup
         readonly CheckBox chkStartMenu;
         readonly CheckBox chkVerifyHash;
         readonly CheckBox chkLaunch;
+#if FULL
+        readonly CheckBox chkJava;
+        readonly CheckBox chkWebView;
+#endif
         readonly Button installBtn;
         readonly Button cancelBtn;
         readonly Label statusLabel;
@@ -144,7 +195,11 @@ namespace LuminaSetup
 
         public SetupForm()
         {
+#if FULL
+            Text = "Установка Lumina Full (офлайн) — v" + Program.AppVersion;
+#else
             Text = "Установка Lumina — v" + Program.AppVersion;
+#endif
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -204,6 +259,16 @@ namespace LuminaSetup
             chkStartMenu = MakeCheck("Добавить ярлык в меню «Пуск» и список программ Windows", 224, true);
             chkVerifyHash = MakeCheck("Проверить целостность файлов по криптографическому хешу SHA-256", 254, true);
             chkLaunch = MakeCheck("Запустить Lumina сразу после установки", 284, true);
+#if FULL
+            chkJava = MakeCheck("Установить встроенную Java от Mojang (17, 21 и новее) — игра запустится без докачки", 314, true);
+            chkWebView = MakeCheck("Установить Microsoft WebView2 Runtime, если его нет в системе", 344, true);
+            Controls.Add(chkJava);
+            Controls.Add(chkWebView);
+            const int shift = 62;
+            ClientSize = new Size(560, 445 + shift);
+#else
+            const int shift = 0;
+#endif
 
             Controls.Add(chkDesktop);
             Controls.Add(chkStartMenu);
@@ -213,7 +278,7 @@ namespace LuminaSetup
             statusLabel = new Label
             {
                 Text = "Готово к установке · Не требует прав администратора · Токены защищены Windows DPAPI",
-                Location = new Point(28, 326),
+                Location = new Point(28, 326 + shift),
                 Size = new Size(504, 20),
                 ForeColor = Color.FromArgb(148, 163, 184),
                 Font = new Font("Segoe UI", 8.5f)
@@ -222,7 +287,7 @@ namespace LuminaSetup
 
             progressTrack = new Panel
             {
-                Location = new Point(28, 352),
+                Location = new Point(28, 352 + shift),
                 Size = new Size(504, 8),
                 BackColor = Color.FromArgb(28, 31, 46)
             };
@@ -238,7 +303,7 @@ namespace LuminaSetup
             cancelBtn = new Button
             {
                 Text = "Отмена",
-                Location = new Point(296, 384),
+                Location = new Point(296, 384 + shift),
                 Size = new Size(104, 38),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(24, 26, 38),
@@ -253,7 +318,7 @@ namespace LuminaSetup
             installBtn = new Button
             {
                 Text = "Установить",
-                Location = new Point(408, 384),
+                Location = new Point(408, 384 + shift),
                 Size = new Size(124, 38),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(232, 86, 118),
@@ -363,10 +428,19 @@ namespace LuminaSetup
             bool createDesktop = chkDesktop.Checked;
             bool createStart = chkStartMenu.Checked;
             bool verifySha = chkVerifyHash.Checked;
+#if FULL
+            bool installJava = chkJava.Checked;
+            bool installWebView = chkWebView.Checked;
+            chkJava.Enabled = false;
+            chkWebView.Enabled = false;
+#endif
 
             try
             {
                 await Task.Run(() => PerformInstall(targetDir, createDesktop, createStart, verifySha));
+#if FULL
+                await Task.Run(() => PerformFullExtras(installJava, installWebView));
+#endif
                 finished = true;
                 progressFill.BackColor = Color.FromArgb(52, 211, 153);
                 SetProgress(1.0, "✓ Lumina успешно установлена и проверена!");
@@ -394,6 +468,10 @@ namespace LuminaSetup
                 chkVerifyHash.Enabled = true;
                 installBtn.Enabled = true;
                 cancelBtn.Enabled = true;
+#if FULL
+                chkJava.Enabled = true;
+                chkWebView.Enabled = true;
+#endif
                 SetProgress(0, "Ошибка: " + ex.Message);
                 MessageBox.Show(this, "Не удалось завершить установку:\n" + ex.Message, "Установка Lumina", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -456,7 +534,18 @@ namespace LuminaSetup
 
             SetProgress(0.88, "Регистрация деинсталлятора в системе Windows…");
             string uninstallerPath = Path.Combine(targetDir, "Uninstall-Lumina.exe");
+#if FULL
+            // Полный установщик весит сотни МБ — в папку кладём лёгкий деинсталлятор (тот же код, режим --uninstall).
+            try
+            {
+                using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream("LuminaUninstaller.exe"))
+                using (var d = new FileStream(uninstallerPath, FileMode.Create, FileAccess.Write))
+                    s.CopyTo(d);
+            }
+            catch { }
+#else
             try { File.Copy(Application.ExecutablePath, uninstallerPath, true); } catch { }
+#endif
 
             try
             {
@@ -492,6 +581,77 @@ namespace LuminaSetup
                 try { Program.CreateShortcut(startLnk, luminaExe, targetDir, "Лаунчер Minecraft: Java Edition"); } catch { }
             }
         }
+
+#if FULL
+        void PerformFullExtras(bool installJava, bool installWebView)
+        {
+            var asm = Assembly.GetExecutingAssembly();
+
+            if (installJava)
+            {
+                // Кладём Java туда же, куда её скачал бы сам лаунчер (src/JavaRuntime.cs): <данные>\runtimes\<component>.
+                string runtimes = Path.Combine(Program.LauncherDataRoot(), "runtimes");
+                Directory.CreateDirectory(runtimes);
+                string fullRoot = Path.GetFullPath(runtimes).TrimEnd('\\') + "\\";
+                using (var s = asm.GetManifestResourceStream("LuminaJava.zip"))
+                {
+                    if (s == null) throw new Exception("Встроенный архив Java не найден.");
+                    using (var z = new ZipArchive(s, ZipArchiveMode.Read))
+                    {
+                        int total = Math.Max(1, z.Entries.Count), done = 0;
+                        foreach (var entry in z.Entries)
+                        {
+                            done++;
+                            string dest = Path.GetFullPath(Path.Combine(fullRoot, entry.FullName.Replace('/', '\\')));
+                            if (!dest.StartsWith(fullRoot, StringComparison.OrdinalIgnoreCase))
+                                throw new Exception("Недопустимый путь в архиве Java: " + entry.FullName);
+                            if (entry.FullName.EndsWith("/")) { Directory.CreateDirectory(dest); continue; }
+                            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                            if (done % 25 == 0 || done == total)
+                                SetProgress(0.30 + 0.45 * done / total, "Java от Mojang: " + done + " / " + total + " файлов");
+                            using (var src = entry.Open())
+                            using (var dst = new FileStream(dest, FileMode.Create, FileAccess.Write, FileShare.None))
+                                src.CopyTo(dst);
+                        }
+                    }
+                }
+            }
+
+            if (installWebView)
+            {
+                if (Program.IsWebView2Installed())
+                {
+                    SetProgress(0.95, "WebView2 Runtime уже установлен в системе — пропускаем.");
+                }
+                else
+                {
+                    SetProgress(0.80, "Установка Microsoft WebView2 Runtime (1–2 минуты)…");
+                    string tmp = Path.Combine(Path.GetTempPath(), "Lumina-WebView2-" + Guid.NewGuid().ToString("N"));
+                    Directory.CreateDirectory(tmp);
+                    string exe = Path.Combine(tmp, "MicrosoftEdgeWebView2RuntimeInstallerX64.exe");
+                    try
+                    {
+                        using (var s = asm.GetManifestResourceStream("MicrosoftEdgeWebView2RuntimeInstallerX64.exe"))
+                        using (var d = new FileStream(exe, FileMode.Create, FileAccess.Write))
+                        {
+                            if (s == null) throw new Exception("Встроенный установщик WebView2 не найден.");
+                            s.CopyTo(d);
+                        }
+                        // Официальный автономный установщик Microsoft; без прав администратора ставится для текущего пользователя.
+                        var p = Process.Start(new ProcessStartInfo(exe, "/silent /install") { UseShellExecute = false, CreateNoWindow = true });
+                        p.WaitForExit(10 * 60 * 1000);
+                        if (!Program.IsWebView2Installed())
+                            throw new Exception("WebView2 Runtime не удалось установить (код " + (p.HasExited ? p.ExitCode.ToString() : "timeout") + ").");
+                    }
+                    finally
+                    {
+                        try { Directory.Delete(tmp, true); } catch { }
+                    }
+                }
+            }
+            SetProgress(0.99, "Все компоненты установлены.");
+        }
+#endif
     }
 
     class BannerPanel : Panel
@@ -540,7 +700,11 @@ namespace LuminaSetup
 
                 var badgeRect = new Rectangle(Width - 138, 28, 110, 24);
                 g.FillRectangle(badgeBg, badgeRect);
+#if FULL
+                g.DrawString("✓ FULL · OFFLINE", badgeFont, badgeFg, badgeRect.X + 10, badgeRect.Y + 5);
+#else
                 g.DrawString("✓ SHA-256 VERIFIED", badgeFont, badgeFg, badgeRect.X + 7, badgeRect.Y + 5);
+#endif
             }
         }
     }

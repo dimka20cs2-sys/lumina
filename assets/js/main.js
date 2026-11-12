@@ -410,7 +410,8 @@
 
   // 7. Локальная проверка подлинности файла по SHA-256 через Web Crypto API (без отправки в сеть)
   var officialHashes = {
-    "4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3": "Lumina-Setup-1.0.0.exe (Установщик v1.0.0)",
+    "99184d2c46662984c4bd097724348802b3f511962e7a17a2a5d46a010e2b6708": "Lumina-Setup-Full-1.0.0.exe (Полный офлайн-установщик 426 МБ · v1.0.0)",
+    "4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3": "Lumina-Setup-1.0.0.exe (Лёгкий установщик v1.0.0)",
     "e596632ed4664827bb9f1937001605c85f34cd7b1ac4ae0b8adfa20742f4e07b": "Lumina-1.0.0.zip (Portable-архив v1.0.0)",
     "c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507": "Lumina.exe (Исполняемый файл лаунчера v1.0.0)"
   };

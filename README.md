@@ -40,12 +40,14 @@
 
 | Файл | Описание | `SHA-256` |
 | :--- | :--- | :--- |
-| [`Lumina-Setup-1.0.0.exe`](downloads/Lumina-Setup-1.0.0.exe) | Графический установщик Windows (`asInvoker`) | `4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3` |
+| [Lumina-Setup-Full-1.0.0.exe](https://github.com/dimka20cs2-sys/lumina/releases/download/v1.0.0/Lumina-Setup-Full-1.0.0.exe) | **Полный офлайн-установщик (426 МБ)**: Лаунчер + Java 17/21/25 от Mojang + WebView2 Runtime | `99184d2c46662984c4bd097724348802b3f511962e7a17a2a5d46a010e2b6708` |
+| [`Lumina-Setup-1.0.0.exe`](downloads/Lumina-Setup-1.0.0.exe) | Лёгкий графический установщик Windows (`1.7 МБ`, `asInvoker`) | `4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3` |
 | [`Lumina-1.0.0.zip`](downloads/Lumina-1.0.0.zip) | Portable-архив лаунчера (без установки) | `e596632ed4664827bb9f1937001605c85f34cd7b1ac4ae0b8adfa20742f4e07b` |
 | `Lumina.exe` | Основной исполняемый файл лаунчера | `c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507` |
 
 Точные значения `SHA-256` (также в [`downloads/SHA256SUMS.txt`](downloads/SHA256SUMS.txt)):
 ```text
+99184d2c46662984c4bd097724348802b3f511962e7a17a2a5d46a010e2b6708  Lumina-Setup-Full-1.0.0.exe
 4eafb81f742bc5416a715dbc5f837e30452ca3c2a716c00e8f67e10188a786f3  Lumina-Setup-1.0.0.exe
 e596632ed4664827bb9f1937001605c85f34cd7b1ac4ae0b8adfa20742f4e07b  Lumina-1.0.0.zip
 c5a9fca40fc94529c6cf36df384e192e31fadeb1d3d12efc1e4cfa7d7b56b507  Lumina.exe
