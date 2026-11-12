@@ -561,7 +561,7 @@ namespace LuminaSetup
                         k.SetValue("UninstallString", "\"" + uninstallerPath + "\" --uninstall");
                         k.SetValue("NoModify", 1, RegistryValueKind.DWord);
                         k.SetValue("NoRepair", 1, RegistryValueKind.DWord);
-                        k.SetValue("EstimatedSize", 4200, RegistryValueKind.DWord);
+                        k.SetValue("EstimatedSize", 125400, RegistryValueKind.DWord);
                     }
                 }
             }
