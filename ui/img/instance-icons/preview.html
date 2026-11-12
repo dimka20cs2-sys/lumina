@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Иконки сборок Lumina — Превью (16 шт)</title>
+  <style>
+    :root {
+      --bg: #121216;
+      --bg-card: rgba(26, 26, 32, 0.78);
+      --bg-card-hover: rgba(36, 36, 45, 0.92);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-hover: rgba(255, 255, 255, 0.16);
+      --c1: #5b2a9c;
+      --c2: #f0607a;
+      --c3: #f7a35c;
+      --accent: linear-gradient(135deg, var(--c1) 0%, var(--c2) 52%, var(--c3) 100%);
+      --text: #f4f4f7;
+      --text-muted: #8e8e9c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 24px 60px;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(91, 42, 156, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(240, 96, 122, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(247, 163, 92, 0.10) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 36px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(91, 42, 156, 0.25);
+      border: 1px solid rgba(240, 96, 122, 0.35);
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffe0d6;
+      margin-bottom: 14px;
+      backdrop-filter: blur(10px);
+    }
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 30%, #f0607a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .controls {
+      display: inline-flex;
+      gap: 10px;
+      background: rgba(20, 20, 26, 0.8);
+      border: 1px solid var(--line);
+      padding: 6px;
+      border-radius: 14px;
+    }
+    .btn-toggle {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-toggle.active, .btn-toggle:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--line-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    .card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 10px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .card-file {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      color: var(--c2);
+    }
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      min-height: 35px;
+    }
+    .scales-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      background: rgba(14, 14, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      padding: 16px 10px 12px;
+      gap: 12px;
+    }
+    .scale-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scale-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    .img-wrap {
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s;
+    }
+    .img-wrap:hover {
+      transform: scale(1.1);
+    }
+    .img-wrap img {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+    }
+    .size-64 img { width: 64px; height: 64px; }
+    .size-48 img { width: 48px; height: 48px; }
+    .size-32 img { width: 32px; height: 32px; }
+
+    /* Footer info */
+    .footer {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer a {
+      color: var(--c2);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      Lumina Launcher Design System
+    </div>
+    <h1 class="title">Иконки сборок Minecraft</h1>
+    <p class="subtitle">16 векторных пиксель-арт иконок с сеткой 4px (16×16), палитрой Lumina (#5b2a9c → #f0607a → #f7a35c) и чёткими краями.</p>
+  </header>
+
+  <main class="grid">
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Трава</span>
+        <span class="card-file">grass.svg</span>
+      </div>
+      <p class="card-desc">Блок травы (изометрический кубик)</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="grass.svg" alt="Трава 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="grass.svg" alt="Трава 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="grass.svg" alt="Трава 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Камень</span>
+        <span class="card-file">stone.svg</span>
+      </div>
+      <p class="card-desc">Блок камня со сланцевыми прожилками</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="stone.svg" alt="Камень 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="stone.svg" alt="Камень 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="stone.svg" alt="Камень 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Алмаз</span>
+        <span class="card-file">diamond.svg</span>
+      </div>
+      <p class="card-desc">Алмазный кристалл с Lumina-отблеском</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="diamond.svg" alt="Алмаз 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="diamond.svg" alt="Алмаз 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="diamond.svg" alt="Алмаз 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Изумруд</span>
+        <span class="card-file">emerald.svg</span>
+      </div>
+      <p class="card-desc">Огранённый изумруд с искрами</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="emerald.svg" alt="Изумруд 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="emerald.svg" alt="Изумруд 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="emerald.svg" alt="Изумруд 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Золото</span>
+        <span class="card-file">gold.svg</span>
+      </div>
+      <p class="card-desc">Золотой слиток в изометрии</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="gold.svg" alt="Золото 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="gold.svg" alt="Золото 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="gold.svg" alt="Золото 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Редстоун</span>
+        <span class="card-file">redstone.svg</span>
+      </div>
+      <p class="card-desc">Редстоун-факел и пыль со свечением</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="redstone.svg" alt="Редстоун 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="redstone.svg" alt="Редстоун 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="redstone.svg" alt="Редстоун 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Динамит</span>
+        <span class="card-file">tnt.svg</span>
+      </div>
+      <p class="card-desc">Блок TNT с полосой и горящим фитилём</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="tnt.svg" alt="Динамит 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="tnt.svg" alt="Динамит 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="tnt.svg" alt="Динамит 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Кирка</span>
+        <span class="card-file">pickaxe.svg</span>
+      </div>
+      <p class="card-desc">Зачарованная кирка с Lumina-наконечником</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="pickaxe.svg" alt="Кирка 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="pickaxe.svg" alt="Кирка 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="pickaxe.svg" alt="Кирка 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Меч</span>
+        <span class="card-file">sword.svg</span>
+      </div>
+      <p class="card-desc">Зачарованный меч с градиентным лезвием</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="sword.svg" alt="Меч 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="sword.svg" alt="Меч 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="sword.svg" alt="Меч 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Сундук</span>
+        <span class="card-file">chest.svg</span>
+      </div>
+      <p class="card-desc">Деревянный сундук с золотым замком</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="chest.svg" alt="Сундук 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="chest.svg" alt="Сундук 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="chest.svg" alt="Сундук 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Печь</span>
+        <span class="card-file">furnace.svg</span>
+      </div>
+      <p class="card-desc">Печь с горящим Lumina-пламенем</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="furnace.svg" alt="Печь 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="furnace.svg" alt="Печь 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="furnace.svg" alt="Печь 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Верстак</span>
+        <span class="card-file">crafting.svg</span>
+      </div>
+      <p class="card-desc">Верстак с сеткой 3×3 и инструментами</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="crafting.svg" alt="Верстак 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="crafting.svg" alt="Верстак 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="crafting.svg" alt="Верстак 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Книга</span>
+        <span class="card-file">book.svg</span>
+      </div>
+      <p class="card-desc">Зачарованная книга с искрами и закладкой</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="book.svg" alt="Книга 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="book.svg" alt="Книга 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="book.svg" alt="Книга 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Кровать</span>
+        <span class="card-file">bed.svg</span>
+      </div>
+      <p class="card-desc">Уютная кровать с коралловым одеялом Lumina</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="bed.svg" alt="Кровать 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="bed.svg" alt="Кровать 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="bed.svg" alt="Кровать 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Незер</span>
+        <span class="card-file">nether.svg</span>
+      </div>
+      <p class="card-desc">Обсидиановый портал Незера с вихрем</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="nether.svg" alt="Незер 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="nether.svg" alt="Незер 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="nether.svg" alt="Незер 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="card-title">Энд</span>
+        <span class="card-file">end.svg</span>
+      </div>
+      <p class="card-desc">Тёмный камень Края с Оком Эндера и звёздами</p>
+      <div class="scales-row">
+        <div class="scale-box">
+          <div class="img-wrap size-64">
+            <img src="end.svg" alt="Энд 64px" width="64" height="64">
+          </div>
+          <span class="scale-label">64×64</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-48">
+            <img src="end.svg" alt="Энд 48px" width="48" height="48">
+          </div>
+          <span class="scale-label">48×48</span>
+        </div>
+        <div class="scale-box">
+          <div class="img-wrap size-32">
+            <img src="end.svg" alt="Энд 32px" width="32" height="32">
+          </div>
+          <span class="scale-label">32×32</span>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div>Всего 16 иконок • Сгенерировано для Lumina Launcher • Векторная графика (SVG, crispEdges)</div>
+    <div>Размеры: 64×64 (исходный viewBox 0 0 64 64) | 48×48 | 32×32</div>
+  </footer>
+
+</body>
+</html>

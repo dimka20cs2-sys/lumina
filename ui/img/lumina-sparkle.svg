@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <path d="M12 2C12 7.5 7.5 12 2 12C7.5 12 12 16.5 12 22C12 16.5 16.5 12 22 12C16.5 12 12 7.5 12 2Z" fill="url(#luminaGrad)"/>
+  <defs>
+    <linearGradient id="luminaGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5b2a9c"/>
+      <stop offset="50%" stop-color="#f0607a"/>
+      <stop offset="100%" stop-color="#f7a35c"/>
+    </linearGradient>
+  </defs>
+</svg>

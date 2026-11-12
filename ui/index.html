@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://app.local; script-src 'self' 'unsafe-inline' https://app.local; style-src 'self' 'unsafe-inline' https://app.local; img-src 'self' https: data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self';">
+<title>Lumina</title>
+<link rel="icon" id="ui-favicon" href="img/lumina-512.png" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-screen="play">
+  <!-- Боковая панель (навигация и профиль) -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo-wrap">
+        <img class="brand-logo" src="img/lumina-512.png" data-theme-logo alt="Lumina Logo">
+        <span class="brand-sparkle-glow"></span>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Lumina</span>
+        <span class="brand-sub">by AkeeTech</span>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Основное меню">
+      <button class="nav-item active" data-screen="play" title="Главный экран запуска">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        <span class="nav-label">Играть</span>
+      </button>
+
+      <button class="nav-item" data-screen="instances" title="Управление сборками и версиями">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        <span class="nav-label">Инсталляции</span>
+      </button>
+
+      <button class="nav-item" data-screen="mods" title="Моды и оптимизация">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="nav-label">Моды</span>
+      </button>
+
+      <!-- Новые экраны: Скины, Серверы, Миры -->
+      <button class="nav-item" data-screen="skins" title="Скины и плащи аккаунта">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+        </svg>
+        <span class="nav-label">Скины</span>
+      </button>
+
+      <button class="nav-item" data-screen="servers" title="Избранные серверы">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+          <line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>
+        </svg>
+        <span class="nav-label">Серверы</span>
+      </button>
+
+      <button class="nav-item" data-screen="worlds" title="Миры, резервные копии и скриншоты">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span class="nav-label">Миры</span>
+      </button>
+
+      <button class="nav-item" data-screen="account" title="Управление аккаунтом">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="nav-label">Аккаунт</span>
+      </button>
+
+      <button class="nav-item" data-screen="settings" title="Настройки лаунчера и игры">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="nav-label">Настройки</span>
+      </button>
+
+      <button class="nav-item" data-screen="log" title="Консоль и журнал игры">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+        <span class="nav-label">Лог</span>
+      </button>
+    </nav>
+
+    <!-- Нижняя плашка профиля -->
+    <div class="sidebar-footer">
+      <div class="sidebar-theme-bar" role="group" aria-label="Тема оформления">
+        <span class="sidebar-theme-label">Тема</span>
+        <div class="sidebar-theme-pills">
+          <button type="button" class="sidebar-theme-btn active" data-ui-theme="lumina" title="Классика (Закат)"><img src="img/lumina-512.png" alt=""></button>
+          <button type="button" class="sidebar-theme-btn" data-ui-theme="emerald" title="Зелёный градиент"><img src="img/lumina-emerald.png" alt=""></button>
+          <button type="button" class="sidebar-theme-btn" data-ui-theme="indigo" title="Индиго"><img src="img/lumina-indigo.png" alt=""></button>
+          <button type="button" class="sidebar-theme-btn" data-ui-theme="dark" title="Тёмный градиент"><img src="img/lumina-dark.png" alt=""></button>
+        </div>
+      </div>
+      <button id="account-chip" class="account-chip" data-screen="account" title="Профиль игрока">
+        <span class="account-avatar-wrapper">
+          <span class="account-avatar"></span>
+          <span class="account-status-dot"></span>
+        </span>
+        <div class="account-chip-info">
+          <span id="account-chip-name" class="account-chip-name">Войти</span>
+          <span class="account-chip-sub">Microsoft</span>
+        </div>
+        <svg class="account-chip-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Основная рабочая область -->
+  <main class="content">
+
+    <!-- 1. ЭКРАН ИГРАТЬ -->
+    <section id="screen-play" class="screen active">
+      <div class="hero-art-backdrop">
+        <div class="hero-gradient-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-header">
+          <div class="hero-badge">
+            <svg class="sparkle-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C12 7.5 7.5 12 2 12C7.5 12 12 16.5 12 22C12 16.5 16.5 12 22 12C16.5 12 12 7.5 12 2Z" fill="url(#heroSparkleGrad)"/>
+              <defs>
+                <linearGradient id="heroSparkleGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#f0607a"/>
+                  <stop offset="100%" stop-color="#f7a35c"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>Официальный релиз</span>
+          </div>
+          <h1 class="hero-title">Minecraft: Java Edition</h1>
+          <div class="hero-sub-wrap">
+            <span class="pulse-indicator"></span>
+            <p id="instance-info" class="hero-sub">Загрузка данных инсталляции…</p>
+          </div>
+        </div>
+
+        <div class="hero-bottom-panel">
+          <!-- Панель запуска -->
+          <div class="play-dock">
+            <div class="instance-select-wrap">
+              <label class="dock-field-label" for="instance-select">Инсталляция</label>
+              <div class="select-styled-wrap">
+                <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                </svg>
+                <select id="instance-select" title="Инсталляция"></select>
+                <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div class="play-actions-group">
+              <button id="play-btn" class="btn play">Играть</button>
+              <button id="cancel-btn" class="btn ghost danger" hidden>Отмена</button>
+              <button id="kill-btn" class="btn danger" hidden>Закрыть игру</button>
+            </div>
+          </div>
+
+          <!-- Индикатор загрузки и прогресса -->
+          <div id="progress" class="progress card" data-state="idle" style="--progress:0">
+            <div class="progress-top-row">
+              <div class="progress-title-col">
+                <span class="progress-spin-sparkle">✦</span>
+                <span id="progress-label" class="progress-label"></span>
+              </div>
+              <span id="progress-text" class="progress-text"></span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill">
+                <div class="progress-shimmer"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Строка состояния -->
+          <div class="status-container">
+            <p id="play-status" class="status" data-kind=""></p>
+          </div>
+
+          <!-- Панель вылета / ошибки -->
+          <div id="crash-panel" class="crash card" hidden>
+            <div class="crash-head">
+              <svg class="crash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <h3>Игра завершилась с ошибкой <span id="crash-code"></span></h3>
+            </div>
+            <p class="crash-desc">Произошёл непредвиденный сбой во время работы игры. Ниже представлены последние строки журнала:</p>
+            <pre id="crash-tail" class="crash-tail"></pre>
+            <div class="row">
+              <button id="crash-log" class="btn primary">Открыть лог</button>
+              <button id="crash-folder" class="btn ghost">Папка логов</button>
+              <button class="btn ghost" data-close-crash>Скрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ЭКРАН ИНСТАЛЛЯЦИИ -->
+    <section id="screen-instances" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Инсталляции</h2>
+          <p class="muted">Версии игры Minecraft, профили загрузчиков Fabric и Vanilla</p>
+        </div>
+        <button id="new-instance-btn" class="btn primary icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Создать инсталляцию</span>
+        </button>
+      </header>
+
+      <div id="instance-list" class="instance-list"></div>
+
+      <div id="instances-empty" class="empty-state card" hidden>
+        <img class="empty-icon" src="img/cube-grass.svg" alt="Блок Minecraft">
+        <h3>Нет ни одной инсталляции</h3>
+        <p class="muted">Создайте первую инсталляцию, выберите версию Minecraft и настройте загрузчик модов.</p>
+      </div>
+    </section>
+
+    <!-- 3. ЭКРАН МОДЫ -->
+    <section id="screen-mods" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Моды и оптимизация</h2>
+          <p class="muted">Увеличение частоты кадров (FPS), стабильность и плавность картинки</p>
+        </div>
+        <div class="select-styled-wrap header-select">
+          <select id="mods-instance" title="Выбор инсталляции"></select>
+          <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </header>
+
+      <!-- Карточка оптимизации -->
+      <div class="card optimize-card">
+        <div class="optimize-info">
+          <div class="optimize-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <span>Lumina Boost Pack</span>
+          </div>
+          <h3>Оптимизация в один клик</h3>
+          <p id="mods-summary" class="muted optimize-summary">Sodium, Lithium, FerriteCore и лучшие моды для гладкого и высокого FPS.</p>
+          <ul id="mods-pack-list" class="pack-list"></ul>
+        </div>
+        <div class="optimize-action">
+          <button id="optimize-btn" class="btn primary play-pulse">Установить</button>
+        </div>
+      </div>
+
+      <div id="mods-skipped" class="status-alert card warn" data-kind="warn" hidden></div>
+
+      <div class="section-subhead">
+        <div>
+          <h3>Файлы в папке mods</h3>
+          <p class="muted">Включайте и выключайте отдельные модификации</p>
+        </div>
+        <button id="open-mods-btn" class="btn ghost icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          <span>Открыть папку mods</span>
+        </button>
+      </div>
+
+      <div id="mods-list" class="mods-list"></div>
+
+      <div id="mods-empty" class="empty-state card" hidden>
+        <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        </svg>
+        <h3>Папка mods пуста</h3>
+        <p class="muted">Нажмите «Установить» в блоке оптимизации выше или добавьте файлы .jar вручную.</p>
+      </div>
+
+      <!-- ModNest: каталог Modrinth для выбранной инсталляции (логика — app.js, раздел «ModNest») -->
+      <div class="section-subhead mn-head">
+        <div>
+          <h3>Каталог Modrinth</h3>
+          <p id="mn-filter-note" class="muted">Только то, что подходит версии игры и загрузчику инсталляции</p>
+        </div>
+        <div class="row">
+          <button id="mn-import-btn" class="btn ghost icon-btn" title="Или перетащите файлы на эту страницу">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <span>Импорт файлов</span>
+          </button>
+          <button id="mn-updates-btn" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            <span>Проверить обновления</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mn-updates" class="card mn-updates" hidden>
+        <div class="mn-updates-head">
+          <strong id="mn-updates-title">Обновления</strong>
+          <button id="mn-update-all" class="btn primary">Обновить всё</button>
+        </div>
+        <ul id="mn-updates-list" class="mn-updates-list"></ul>
+      </div>
+
+      <div id="mn-catalog" class="card mn-catalog">
+        <div class="mn-kinds" role="tablist">
+          <button class="mn-kind active" data-mn-kind="mod" role="tab">Моды</button>
+          <button class="mn-kind" data-mn-kind="resourcepack" role="tab">Ресурс-паки</button>
+          <button class="mn-kind" data-mn-kind="shader" role="tab">Шейдеры</button>
+          <button class="mn-kind" data-mn-kind="datapack" role="tab">Датапаки</button>
+          <button class="mn-kind" data-mn-kind="modpack" role="tab">Сборки</button>
+        </div>
+        <div class="row mn-filters">
+          <input id="mn-query" type="text" placeholder="Поиск на Modrinth: sodium, карта, мебель…">
+          <div class="select-styled-wrap">
+            <select id="mn-sort" title="Сортировка">
+              <option value="relevance">По релевантности</option>
+              <option value="downloads">По загрузкам</option>
+              <option value="updated">По обновлению</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="select-styled-wrap">
+            <select id="mn-category" title="Категория"></select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </div>
+        <div id="mn-shader-hint" class="status-alert card warn mn-shader-hint" data-kind="warn" hidden>
+          <span id="mn-shader-text">Для шейдеров нужен мод Iris.</span>
+          <button id="mn-shader-loader-btn" class="btn primary">Установить</button>
+        </div>
+        <p id="mn-status" class="status" data-kind=""></p>
+        <div id="mn-results" class="mn-results"></div>
+        <div id="mn-results-empty" class="empty-state" hidden>
+          <h3>Ничего не найдено</h3>
+          <p class="muted">Попробуйте другой запрос или категорию.</p>
+        </div>
+        <div class="row end"><button id="mn-more" class="btn ghost" hidden>Показать ещё</button></div>
+      </div>
+
+      <div class="section-subhead">
+        <div>
+          <h3 id="mn-installed-title">Установлено в инсталляции</h3>
+          <p class="muted">Включение, выключение и удаление (в Корзину)</p>
+        </div>
+      </div>
+      <div id="mn-installed" class="mods-list mn-installed"></div>
+      <div id="mn-installed-empty" class="empty-state card" hidden>
+        <h3>Пока пусто</h3>
+        <p class="muted">Установите что-нибудь из каталога или перетащите сюда .jar, .zip или .mrpack.</p>
+      </div>
+      <div id="mn-drop" class="mn-drop" hidden>Отпустите, чтобы импортировать .jar, .zip или .mrpack</div>
+    </section>
+
+    <!-- 7. ЭКРАН СКИНЫ (логика — app.js, раздел «Скины») -->
+    <section id="screen-skins" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Скины</h2>
+          <p class="muted">Библиотека скинов, предпросмотр и смена скина и плаща аккаунта Minecraft</p>
+        </div>
+        <div class="row">
+          <button id="skin-studio-btn" class="btn ghost icon-btn" title="Веб-редактор скинов в браузере">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>Открыть Skin Studio</span>
+          </button>
+          <button id="skin-add-btn" class="btn primary icon-btn" title="Или перетащите PNG на эту страницу">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Добавить PNG</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="skins-layout">
+        <div class="card skin-stage">
+          <div class="skin-stage-scene">
+            <div class="stage-backdrop-glow"></div>
+            <div class="stage-light-beam"></div>
+            <div class="skin-stage-view">
+              <canvas id="skin-3d" width="360" height="440" title="Потяните, чтобы повернуть"></canvas>
+              <canvas id="skin-2d" width="336" height="256" hidden></canvas>
+            </div>
+            <div class="stage-podium" aria-hidden="true">
+              <div class="podium-halo"></div>
+              <div class="podium-ring-outer"></div>
+              <div class="podium-ring-inner"></div>
+              <div class="podium-core"></div>
+              <div class="podium-disc"></div>
+              <div class="podium-floor-shadow"></div>
+            </div>
+          </div>
+          <div class="skin-view-switch" role="tablist">
+            <button class="skin-view active" data-skin-view="3d" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              <span>3D</span>
+            </button>
+            <button class="skin-view" data-skin-view="2d" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+              <span>Спереди и сзади</span>
+            </button>
+          </div>
+          <div class="skin-stage-hint">
+            <svg class="stage-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <p id="skin-stage-note" class="muted skin-stage-note">Выберите скин из библиотеки</p>
+          </div>
+        </div>
+
+        <div class="skin-side">
+          <div id="skin-editor" class="card skin-editor">
+            <div class="skin-card-header">
+              <div class="card-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              </div>
+              <h3 id="skin-editor-title">Скин не выбран</h3>
+            </div>
+            <label class="field-label">
+              <span class="label-text">Название</span>
+              <input id="skin-name" type="text" maxlength="40" placeholder="Мой скин">
+            </label>
+            <label class="field-label">
+              <span class="label-text">Модель рук</span>
+              <div class="select-styled-wrap">
+                <select id="skin-variant">
+                  <option value="classic">Классическая — Steve (руки 4 px)</option>
+                  <option value="slim">Тонкая — Alex (руки 3 px)</option>
+                </select>
+                <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </label>
+            <div class="row skin-editor-actions">
+              <button id="skin-apply" class="btn primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Надеть на аккаунт</span>
+              </button>
+              <button id="skin-duplicate" class="btn ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Дублировать</span>
+              </button>
+              <button id="skin-delete" class="btn ghost danger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                <span>Удалить</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="skin-account" class="card skin-account">
+            <div class="skin-account-head">
+              <div class="skin-avatar-frame" title="Показать в предпросмотре">
+                <canvas id="skin-current" width="64" height="128"></canvas>
+              </div>
+              <div class="skin-account-info">
+                <div class="skin-account-badge">
+                  <span class="pulse-indicator"></span>
+                  <span>Текущий выбор</span>
+                </div>
+                <h3>Скин аккаунта</h3>
+                <p id="skin-account-status" class="status" data-kind="">Загрузка…</p>
+              </div>
+            </div>
+            <div class="row skin-account-actions">
+              <button id="skin-refresh" class="btn ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                <span>Обновить</span>
+              </button>
+              <button id="skin-import-account" class="btn ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span>В библиотеку</span>
+              </button>
+              <button id="skin-reset" class="btn ghost danger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <span>Сбросить скин</span>
+              </button>
+            </div>
+            <div class="skin-capes-divider"></div>
+            <div class="skin-capes-head">
+              <div class="skin-capes-title-row">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <h3>Плащи</h3>
+              </div>
+              <button id="cape-hide" class="btn ghost">Скрыть плащ</button>
+            </div>
+            <div id="cape-list" class="cape-list"></div>
+            <p id="cape-empty" class="muted" hidden>У аккаунта нет плащей.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-subhead">
+        <div>
+          <h3>Библиотека</h3>
+          <p class="muted">PNG 64×64 или 64×32 · файлы можно перетащить на эту страницу</p>
+        </div>
+      </div>
+      <div id="skin-library" class="skin-library"></div>
+      <div id="skin-empty" class="empty-state card" hidden>
+        <div class="empty-icon-wrap">
+          <img class="empty-icon" src="img/cube-grass.svg" alt="">
+        </div>
+        <h3>Библиотека пуста</h3>
+        <p class="muted">Добавьте PNG-скин, перетащите файл сюда или импортируйте текущий скин аккаунта.</p>
+      </div>
+      <div id="skin-drop" class="mn-drop skin-drop" hidden>Отпустите PNG, чтобы добавить скины в библиотеку</div>
+    </section>
+
+    <!-- 8. ЭКРАН СЕРВЕРЫ (логика — app.js, раздел «Серверы») -->
+    <section id="screen-servers" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Серверы</h2>
+          <p class="muted">Избранные серверы: статус, онлайн, пинг и вход в один клик</p>
+        </div>
+        <button id="srv-refresh" class="btn ghost icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Обновить всё</span>
+        </button>
+      </header>
+
+      <form id="srv-add-form" class="card srv-add" autocomplete="off">
+        <div class="srv-add-inputs">
+          <div class="srv-input-group">
+            <svg class="srv-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <input id="srv-name" type="text" maxlength="60" placeholder="Название сервера (необязательно)">
+          </div>
+          <div class="srv-input-group srv-addr-group">
+            <svg class="srv-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <input id="srv-address" type="text" maxlength="260" placeholder="mc.example.com или 1.2.3.4:25565" spellcheck="false" required>
+          </div>
+        </div>
+        <button id="srv-add" type="submit" class="btn primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Добавить</span>
+        </button>
+      </form>
+
+      <div class="section-subhead srv-subhead">
+        <div>
+          <h3>Играть через инсталляцию</h3>
+          <p class="muted">«Играть» запускает выбранную инсталляцию и сразу подключается к серверу</p>
+        </div>
+        <div class="row">
+          <div class="select-styled-wrap header-select">
+            <select id="srv-instance" title="Инсталляция для входа на сервер"></select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <button id="srv-import" class="btn ghost icon-btn" title="Добавить серверы из списка «Сетевая игра» этой инсталляции">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Импорт из servers.dat</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="srv-list" class="srv-list"></div>
+      <div id="srv-empty" class="empty-state card" hidden>
+        <div class="empty-icon-wrap">
+          <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+        </div>
+        <h3>Нет избранных серверов</h3>
+        <p class="muted">Добавьте адрес сервера выше или импортируйте список из игры.</p>
+      </div>
+    </section>
+
+    <!-- 9. ЭКРАН МИРЫ (логика — app.js, раздел «Миры») -->
+    <section id="screen-worlds" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Миры и скриншоты</h2>
+          <p class="muted">Миры всех инсталляций, резервные копии и галерея скриншотов</p>
+        </div>
+        <div class="select-styled-wrap header-select">
+          <select id="wr-instance" title="Инсталляция"></select>
+          <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+      </header>
+
+      <div class="wr-nav-bar">
+        <div class="wr-tabs" role="tablist">
+          <button class="wr-tab active" data-wr-tab="worlds" role="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span>Миры</span>
+          </button>
+          <button class="wr-tab" data-wr-tab="backups" role="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+            <span>Резервные копии</span>
+          </button>
+          <button class="wr-tab" data-wr-tab="shots" role="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Скриншоты</span>
+          </button>
+        </div>
+        <p id="wr-status" class="status" data-kind=""></p>
+      </div>
+
+      <div id="wr-panel-worlds" class="wr-panel">
+        <div id="world-list" class="world-list"></div>
+        <div id="worlds-empty" class="empty-state card" hidden>
+          <div class="empty-icon-wrap">
+            <img class="empty-icon" src="img/cube-grass.svg" alt="">
+          </div>
+          <h3>Миров пока нет</h3>
+          <p class="muted">Запустите игру и создайте мир — он появится здесь.</p>
+        </div>
+      </div>
+
+      <div id="wr-panel-backups" class="wr-panel" hidden>
+        <div class="section-subhead">
+          <div>
+            <h3>Резервные копии</h3>
+            <p class="muted">Восстановление всегда создаёт новую копию мира — существующие миры не перезаписываются</p>
+          </div>
+          <button id="backups-folder" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            <span>Папка копий</span>
+          </button>
+        </div>
+        <div id="backup-list" class="mods-list backup-list"></div>
+        <div id="backups-empty" class="empty-state card" hidden>
+          <div class="empty-icon-wrap">
+            <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+          </div>
+          <h3>Резервных копий нет</h3>
+          <p class="muted">Нажмите «Резервная копия» у мира на вкладке «Миры».</p>
+        </div>
+      </div>
+
+      <div id="wr-panel-shots" class="wr-panel" hidden>
+        <div id="shot-grid" class="shot-grid"></div>
+        <div id="shots-empty" class="empty-state card" hidden>
+          <div class="empty-icon-wrap">
+            <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          </div>
+          <h3>Скриншотов нет</h3>
+          <p class="muted">В игре нажмите F2 — снимки появятся здесь.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ЭКРАН АККАУНТ -->
+    <section id="screen-account" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Аккаунт Microsoft</h2>
+          <p class="muted">Вход для игры в лицензионную версию Minecraft: Java Edition</p>
+        </div>
+        <button id="login-btn" class="btn primary icon-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/></svg>
+          <span>Войти через Microsoft</span>
+        </button>
+      </header>
+
+      <div class="security-banner card">
+        <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <div class="banner-text">
+          <strong>Защищённая авторизация OAuth 2.0 + шифрование Windows DPAPI</strong>
+          <p class="muted">Пароль вводится только в браузере на официальном сайте Microsoft. Токены сессии шифруются системным ключом учётной записи Windows (CurrentUser) и недоступны с других устройств.</p>
+          <div class="security-chip-row">
+            <span class="sec-chip">OAuth 2.0 Device Code</span>
+            <span class="sec-chip">Шифрование DPAPI</span>
+            <span class="sec-chip">TLS 1.2 / 1.3</span>
+            <span class="sec-chip">Контроль SHA-1 / SHA-512</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="azure-missing" class="card warn-card" hidden>
+        <div class="warn-head">
+          <svg class="warn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <h3>Требуется настройка приложения Azure</h3>
+        </div>
+        <p>Чтобы входить через Microsoft, у лаунчера должно быть настроено бесплатное приложение Azure. Это занимает около 2 минут по нашей пошаговой инструкции.</p>
+        <div class="row">
+          <button id="azure-guide-btn" class="btn primary">Пошаговая инструкция</button>
+          <button id="azure-go-settings" class="btn ghost">Перейти к настройкам</button>
+        </div>
+      </div>
+
+      <!-- Панель ввода кода авторизации -->
+      <div id="login-panel" class="card login-card" hidden>
+        <div class="login-header">
+          <span class="step-badge">Шаг 1 из 2</span>
+          <h3>Подтверждение входа на устройстве</h3>
+          <p class="muted">Перейдите на страницу авторизации Microsoft и введите следующий уникальный код:</p>
+        </div>
+
+        <div id="login-code" class="login-code"></div>
+
+        <div class="row">
+          <button id="login-copy" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Скопировать код</span>
+          </button>
+          <button id="login-open" class="btn primary icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span>Открыть страницу входа</span>
+          </button>
+          <button id="login-cancel" class="btn ghost">Отмена</button>
+        </div>
+
+        <div class="login-footer">
+          <p id="login-url" class="muted login-url"></p>
+          <p id="login-status" class="status login-status" data-kind="loading">Ждём подтверждения…</p>
+        </div>
+      </div>
+
+      <div class="section-subhead">
+        <h3>Подключенные аккаунты</h3>
+      </div>
+
+      <div id="account-list" class="account-list"></div>
+
+      <div id="accounts-empty" class="empty-state card" hidden>
+        <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <h3>Вы ещё не выполнили вход</h3>
+        <p class="muted">Нажмите «Войти через Microsoft», чтобы подключить ваш лицензионный профиль.</p>
+      </div>
+    </section>
+
+    <!-- 5. ЭКРАН НАСТРОЙКИ -->
+    <section id="screen-settings" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Настройки</h2>
+          <p class="muted">Параметры графики, выделение памяти и параметры JVM</p>
+        </div>
+        <button id="settings-save" class="btn primary icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Сохранить настройки</span>
+        </button>
+      </header>
+
+      <div class="settings-grid">
+        <!-- Тема оформления и вид иконки -->
+        <fieldset class="card setting-card theme-setting-card">
+          <legend>
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a7 7 0 1 0 10 10"></path></svg>
+            <span>Тема оформления и иконка</span>
+          </legend>
+          <p class="muted hint-text" style="margin-top:0">Выберите цветовую схему лаунчера — каждая тема меняет палитру интерфейса и вид иконки Lumina.</p>
+          <div class="theme-options-grid">
+            <button type="button" class="theme-option-card active" data-ui-theme="lumina">
+              <img src="img/lumina-512.png" alt="">
+              <div class="theme-option-info">
+                <strong>Закат Lumina</strong>
+                <span>Фиолетово-коралловый</span>
+              </div>
+            </button>
+            <button type="button" class="theme-option-card" data-ui-theme="emerald">
+              <img src="img/lumina-emerald.png" alt="">
+              <div class="theme-option-info">
+                <strong>Зелёный градиент</strong>
+                <span>Изумруд и мята</span>
+              </div>
+            </button>
+            <button type="button" class="theme-option-card" data-ui-theme="indigo">
+              <img src="img/lumina-indigo.png" alt="">
+              <div class="theme-option-info">
+                <strong>Индиго</strong>
+                <span>Глубокий сапфир</span>
+              </div>
+            </button>
+            <button type="button" class="theme-option-card" data-ui-theme="dark">
+              <img src="img/lumina-dark.png" alt="">
+              <div class="theme-option-info">
+                <strong>Тёмный градиент</strong>
+                <span>Обсидиан и сталь</span>
+              </div>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- Память и Java -->
+        <fieldset class="card setting-card">
+          <legend>
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            <span>Память и Java</span>
+          </legend>
+
+          <label class="field-label">
+            <span class="label-text">Выделенная память (ОЗУ), МБ</span>
+            <input type="number" data-setting="ramMb" min="0" max="65536" step="512" placeholder="0 = авто">
+          </label>
+          <p id="ram-auto-hint" class="muted hint-text"></p>
+
+          <label class="field-label">
+            <span class="label-text">Путь к Java Runtime</span>
+            <span class="row input-with-action">
+              <input type="text" data-setting="javaPath" placeholder="Автоматически (Mojang Runtime)">
+              <button id="pick-java" class="btn ghost">Выбрать…</button>
+            </span>
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Дополнительные аргументы JVM</span>
+            <input type="text" data-setting="jvmArgs" placeholder="Например: -XX:+UseZGC -XX:+ParallelRefProcEnabled">
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Приоритет процесса в Windows</span>
+            <div class="select-styled-wrap">
+              <select data-setting="priority">
+                <option value="normal">Обычный (Normal)</option>
+                <option value="above">Выше среднего (Above Normal)</option>
+                <option value="high">Высокий (High Priority)</option>
+              </select>
+              <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </label>
+        </fieldset>
+
+        <!-- Окно игры -->
+        <fieldset class="card setting-card">
+          <legend>
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Окно игры</span>
+          </legend>
+
+          <label class="check-toggle">
+            <input type="checkbox" data-setting="fullscreen">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Полноэкранный режим</span>
+          </label>
+
+          <label class="check-toggle">
+            <input type="checkbox" data-setting="customResolution">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Своё разрешение окна</span>
+          </label>
+
+          <div class="row resolution-row">
+            <label class="field-label flex-1">
+              <span class="label-text">Ширина (px)</span>
+              <input type="number" data-setting="width" min="320" max="7680" placeholder="1920">
+            </label>
+            <label class="field-label flex-1">
+              <span class="label-text">Высота (px)</span>
+              <input type="number" data-setting="height" min="240" max="4320" placeholder="1080">
+            </label>
+          </div>
+
+          <label class="check-toggle">
+            <input type="checkbox" data-setting="closeOnLaunch">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Закрывать лаунчер после успешного запуска</span>
+          </label>
+        </fieldset>
+
+        <!-- Игровой режим -->
+        <fieldset id="gamemode-card" class="card setting-card gamemode-card">
+          <legend>
+            <div class="legend-badge">
+              <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <span>Игровой режим</span>
+          </legend>
+
+          <div class="gamemode-options">
+            <div class="gamemode-item">
+              <label class="check-toggle">
+                <input type="checkbox" data-setting="gameModeGpu">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Java игры — на мощной видеокарте</span>
+              </label>
+              <p class="muted hint-text">Как «Параметры → Дисплей → Графика» в Windows, только для Java из Lumina. Выключение возвращает прежнее значение.</p>
+            </div>
+
+            <div class="gamemode-item">
+              <label class="check-toggle">
+                <input type="checkbox" data-setting="gameModePower">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Схема питания «Высокая производительность» на время игры</span>
+              </label>
+            </div>
+
+            <div class="gamemode-item">
+              <label class="check-toggle">
+                <input type="checkbox" data-setting="gameModeHide">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Сворачивать лаунчер и освобождать его память во время игры</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="gamemode-footer">
+            <p class="muted hint-text">Приоритет процесса игры — в карточке «Память и Java».</p>
+            <div class="gamemode-hw-box">
+              <div class="gamemode-hw-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </div>
+              <p id="gamemode-hw" class="muted hint-text"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Загрузки и папки -->
+        <fieldset class="card setting-card">
+          <legend>
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Загрузки и каталоги</span>
+          </legend>
+
+          <label class="field-label">
+            <span class="label-text">Потоков одновременной загрузки</span>
+            <input type="number" data-setting="concurrency" min="1" max="64" placeholder="16">
+          </label>
+
+          <label class="field-label">
+            <span class="label-text">Каталог файлов игры</span>
+            <span class="row input-with-action">
+              <input type="text" data-setting="dataDir" placeholder="%APPDATA%\.lumina">
+              <button id="pick-data-dir" class="btn ghost">Выбрать…</button>
+            </span>
+          </label>
+
+          <div class="row folder-actions">
+            <button id="open-data-dir" class="btn ghost icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <span>Папка игры</span>
+            </button>
+            <button id="open-config-dir" class="btn ghost icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <span>Папка настроек</span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- Вход через Microsoft / Azure -->
+        <fieldset class="card setting-card">
+          <legend>
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>Авторизация Microsoft</span>
+          </legend>
+
+          <label class="field-label">
+            <span class="label-text">Application (client) ID приложения Azure</span>
+            <input type="text" data-setting="azureClientId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" spellcheck="false" class="mono-input">
+          </label>
+          <div class="row">
+            <button id="guide-btn" class="btn ghost icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <span>Инструкция по получению Client ID</span>
+            </button>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="settings-footer">
+        <p id="app-version" class="muted app-version-info"></p>
+      </div>
+    </section>
+
+    <!-- 6. ЭКРАН ЛОГ -->
+    <section id="screen-log" class="screen">
+      <header class="screen-head">
+        <div>
+          <h2>Лог игры</h2>
+          <p class="muted">Консольный вывод Minecraft и системные события запуска</p>
+        </div>
+        <div class="row log-controls">
+          <label class="check-toggle">
+            <input type="checkbox" id="log-autoscroll" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Автопрокрутка</span>
+          </label>
+          <button id="log-copy" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Копировать</span>
+          </button>
+          <button id="log-clear" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <span>Очистить</span>
+          </button>
+          <button id="log-open-folder" class="btn ghost icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            <span>Папка логов</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="log-terminal-wrap">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">minecraft-output.log</span>
+        </div>
+        <pre id="log-output" class="log"></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно: Редактор инсталляции -->
+  <div id="instance-editor" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form id="ie-form" class="modal-body" autocomplete="off">
+      <div class="modal-header">
+        <h2 id="ie-title">Новая инсталляция</h2>
+        <button type="button" class="btn-close" data-close aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="modal-content-scroll">
+        <label class="field-label">
+          <span class="label-text">Название инсталляции</span>
+          <input id="ie-name" type="text" maxlength="60" placeholder="Например: Выживание 1.21.4" required>
+        </label>
+
+        <div class="field-label">
+          <span class="label-text">Иконка</span>
+          <div id="ie-icons" class="icon-picker"></div>
+          <button id="ie-icon-custom" class="btn ghost icon-custom-btn" type="button">Своя картинка…</button>
+        </div>
+
+        <label class="field-label">
+          <span class="label-text">Версия Minecraft</span>
+          <div class="row">
+            <div class="select-styled-wrap flex-1">
+              <select id="ie-version"></select>
+              <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="field-label">
+          <span class="label-text">Загрузчик модов</span>
+          <div class="select-styled-wrap">
+            <select id="ie-loader">
+              <option value="vanilla">Без модов (Vanilla)</option>
+              <option value="fabric">Fabric (Рекомендуется)</option>
+              <option value="quilt">Quilt</option>
+              <option value="forge">Forge</option>
+              <option value="neoforge">NeoForge</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </label>
+
+        <label id="ie-loader-version-wrap" class="field-label">
+          <span class="label-text">Версия загрузчика</span>
+          <div class="select-styled-wrap">
+            <select id="ie-loader-version"></select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </label>
+
+        <label class="field-label">
+          <span class="label-text">Память для этой сборки, МБ (0 — из общих настроек)</span>
+          <input id="ie-ram" type="number" min="0" max="65536" step="512" value="0">
+        </label>
+
+        <label class="field-label">
+          <span class="label-text">Аргументы JVM для этой инсталляции</span>
+          <input id="ie-jvm" type="text" placeholder="Оставьте пустым для настроек по умолчанию">
+        </label>
+      </div>
+
+      <div class="modal-footer row end">
+        <button type="button" class="btn ghost" data-close>Отмена</button>
+        <button id="ie-save" type="submit" class="btn primary">Сохранить</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Автонастройка графики -->
+  <div id="gfx-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-body wide gfx-modal-body">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </div>
+          <h2 id="gfx-title">Автонастройка графики</h2>
+        </div>
+        <button type="button" class="btn-close" data-close aria-label="Закрыть">✕</button>
+      </div>
+      <div class="modal-content-scroll">
+        <div id="gfx-hw" class="card gfx-hw">Определяю видеокарту, процессор и экран…</div>
+        <p class="muted gfx-note">Lumina запишет настройки в options.txt этой инсталляции (и в настройки Sodium, если он установлен).
+          Бинды клавиш, язык и остальные параметры не меняются. Перед первой правкой сохраняется резервная копия.</p>
+        <div class="gfx-profiles">
+          <button type="button" class="gfx-profile" data-profile="fps">
+            <div class="gfx-profile-top">
+              <div class="gfx-profile-icon fps-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <strong>Макс. FPS</strong>
+            </div>
+            <span>Минимум эффектов, малая дальность, без ограничения кадров</span>
+          </button>
+          <button type="button" class="gfx-profile" data-profile="balance">
+            <div class="gfx-profile-top">
+              <div class="gfx-profile-icon balance-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <strong>Баланс</strong>
+            </div>
+            <span>Красиво и плавно, кадры по частоте монитора</span>
+          </button>
+          <button type="button" class="gfx-profile" data-profile="quality">
+            <div class="gfx-profile-top">
+              <div class="gfx-profile-icon quality-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <strong>Красиво</strong>
+            </div>
+            <span>Большая дальность, все эффекты, облака и тени</span>
+          </button>
+        </div>
+        <p id="gfx-status" class="status" data-kind=""></p>
+        <ul id="gfx-changes" class="gfx-changes"></ul>
+      </div>
+      <div class="modal-footer row end">
+        <button id="gfx-restore" type="button" class="btn ghost danger" hidden>Вернуть как было</button>
+        <button type="button" class="btn primary" data-close>Готово</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Инструкция AZURE-SETUP.md -->
+  <div id="guide-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-body wide">
+      <div class="modal-header">
+        <h2>Инструкция по настройке Microsoft Azure</h2>
+        <button type="button" class="btn-close" data-close aria-label="Закрыть">✕</button>
+      </div>
+      <div class="modal-content-scroll">
+        <pre id="guide-text" class="guide"></pre>
+      </div>
+      <div class="modal-footer row end">
+        <button class="btn primary" data-close>Понятно</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ModNest: выбор мира для датапака -->
+  <div id="mn-world-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <h2>В какой мир поставить датапак?</h2>
+        <button type="button" class="btn-close" data-close aria-label="Закрыть">✕</button>
+      </div>
+      <label class="field-label">
+        <span class="label-text">Мир</span>
+        <div class="select-styled-wrap">
+          <select id="mn-world"></select>
+          <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+      </label>
+      <p id="mn-world-empty" class="muted" hidden>В этой инсталляции ещё нет миров. Запустите игру, создайте мир и вернитесь сюда.</p>
+      <div class="modal-footer row end">
+        <button type="button" class="btn ghost" data-close>Отмена</button>
+        <button id="mn-world-ok" type="button" class="btn primary">Установить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Всплывающее уведомление Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Шаблоны для app.js (структура классов и дата-атрибутов строго соблюдена) -->
+  <template id="instance-template">
+    <article class="instance-card">
+      <div class="inst-icon-col">
+        <img class="inst-block-icon" src="img/cube-grass.svg" alt="Block">
+      </div>
+      <div class="inst-main">
+        <div class="inst-title-row">
+          <h3 class="inst-name"></h3>
+          <span class="inst-running-badge">Запущена</span>
+        </div>
+        <div class="inst-meta-row">
+          <span class="inst-badge inst-version"></span>
+          <span class="inst-badge inst-loader"></span>
+          <span class="inst-played"></span>
+        </div>
+      </div>
+      <div class="inst-actions">
+        <button class="btn primary play-action-btn" data-action="play" title="Запустить эту инсталляцию">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Играть</span>
+        </button>
+        <button class="btn ghost" data-action="edit" title="Настроить версию и параметры">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <span>Изменить</span>
+        </button>
+        <button class="btn ghost" data-action="graphics" title="Автонастройка графики под этот компьютер">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          <span>Графика</span>
+        </button>
+        <button class="btn ghost" data-action="folder" title="Открыть папку сборки">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          <span>Папка</span>
+        </button>
+        <button class="btn ghost danger" data-action="delete" title="Удалить инсталляцию">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Удалить</span>
+        </button>
+      </div>
+    </article>
+  </template>
+
+  <template id="mod-template">
+    <div class="mod-row">
+      <label class="mod-toggle-wrap">
+        <input type="checkbox" class="mod-toggle" title="Включён">
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="mod-name"></span>
+      <span class="mod-badge">пакет</span>
+      <span class="mod-size"></span>
+    </div>
+  </template>
+
+  <template id="account-template">
+    <article class="account-card">
+      <div class="account-avatar-wrapper">
+        <span class="account-avatar"></span>
+        <span class="account-active-badge">✓</span>
+      </div>
+      <div class="acc-main">
+        <span class="acc-name"></span>
+        <span class="acc-uuid"></span>
+      </div>
+      <div class="acc-actions">
+        <button class="btn ghost" data-action="select">Выбрать</button>
+        <button class="btn ghost danger" data-action="logout">Выйти</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="mn-card-template">
+    <article class="mn-card">
+      <img class="mn-icon" alt="" loading="lazy">
+      <div class="mn-main">
+        <div class="mn-title-row"><span class="mn-title"></span><span class="mn-author muted"></span></div>
+        <p class="mn-desc muted"></p>
+        <div class="mn-meta"><span class="mn-downloads"></span><span class="mn-cats"></span></div>
+      </div>
+      <div class="mn-actions">
+        <button class="btn primary" data-action="install">Установить</button>
+        <button class="btn ghost danger" data-action="remove" hidden>Удалить</button>
+        <button class="btn ghost" data-action="open" title="Открыть страницу на Modrinth">Modrinth</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="mn-item-template">
+    <div class="mod-row mn-item">
+      <label class="mod-toggle-wrap">
+        <input type="checkbox" class="mod-toggle mn-toggle" title="Включён">
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="mod-name mn-item-name"></span>
+      <span class="mod-badge mn-item-kind"></span>
+      <span class="mod-size mn-item-size"></span>
+      <button class="btn ghost danger mn-item-remove" data-action="remove" title="Удалить в Корзину">Удалить</button>
+    </div>
+  </template>
+
+
+  <!-- Шаблоны новых экранов -->
+  <template id="skin-card-template">
+    <article class="skin-card" tabindex="0">
+      <div class="skin-thumb-wrap">
+        <canvas class="skin-thumb" width="64" height="128"></canvas>
+      </div>
+      <div class="skin-card-details">
+        <span class="skin-card-name"></span>
+        <span class="skin-card-variant"></span>
+      </div>
+    </article>
+  </template>
+
+  <template id="cape-template">
+    <button type="button" class="cape-item">
+      <div class="cape-thumb-wrap">
+        <canvas class="cape-thumb" width="40" height="64"></canvas>
+      </div>
+      <span class="cape-name"></span>
+    </button>
+  </template>
+
+  <template id="server-template">
+    <article class="server-card" data-state="loading">
+      <div class="srv-icon-col">
+        <img class="srv-icon" src="img/cube-grass.svg" alt="">
+        <span class="srv-state-dot"></span>
+      </div>
+      <div class="srv-main">
+        <div class="srv-title-row"><span class="srv-name"></span><span class="srv-address muted"></span></div>
+        <div class="srv-motd"></div>
+        <div class="srv-meta"><span class="srv-players"></span><span class="srv-version"></span><span class="srv-ping"></span></div>
+      </div>
+      <div class="srv-actions">
+        <button class="btn primary" data-action="play" title="Запустить инсталляцию и войти на сервер">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Играть</span>
+        </button>
+        <button class="btn ghost" data-action="ping" title="Обновить статус">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Обновить</span>
+        </button>
+        <button class="btn ghost" data-action="copy" title="Скопировать адрес">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Адрес</span>
+        </button>
+        <button class="btn ghost danger" data-action="delete" title="Убрать из избранного">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Удалить</span>
+        </button>
+      </div>
+    </article>
+  </template>
+
+  <template id="world-template">
+    <article class="world-card">
+      <div class="world-icon-col">
+        <img class="world-icon" src="img/cube-grass.svg" alt="">
+      </div>
+      <div class="world-main">
+        <div class="world-title-row"><span class="world-name"></span><span class="inst-running-badge world-running">Игра запущена</span></div>
+        <div class="world-meta">
+          <span class="inst-badge world-instance"></span>
+          <span class="inst-badge world-version"></span>
+          <span class="world-mode"></span>
+          <span class="world-size"></span>
+          <span class="world-played"></span>
+        </div>
+        <span class="world-folder muted"></span>
+      </div>
+      <div class="world-actions">
+        <button class="btn primary" data-action="backup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          <span>Резервная копия</span>
+        </button>
+        <button class="btn ghost" data-action="folder" title="Открыть папку мира">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          <span>Папка</span>
+        </button>
+        <button class="btn ghost danger" data-action="delete" title="Удалить мир в Корзину">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Удалить</span>
+        </button>
+      </div>
+    </article>
+  </template>
+
+  <template id="backup-template">
+    <div class="mod-row backup-row">
+      <div class="backup-icon-wrap">
+        <svg class="backup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+      </div>
+      <span class="mod-name backup-name"></span>
+      <span class="mod-badge backup-instance"></span>
+      <span class="mod-size backup-meta"></span>
+      <div class="backup-actions">
+        <button class="btn ghost" data-action="restore">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+          <span>Восстановить копией</span>
+        </button>
+        <button class="btn ghost danger" data-action="delete" title="Удалить в Корзину">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Удалить</span>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <template id="shot-template">
+    <figure class="shot-card">
+      <button type="button" class="shot-open" data-action="open" title="Открыть в просмотрщике">
+        <img class="shot-img" alt="" loading="lazy">
+        <div class="shot-overlay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+        </div>
+      </button>
+      <figcaption class="shot-caption"><span class="shot-name"></span><span class="shot-meta muted"></span></figcaption>
+      <div class="shot-actions">
+        <button class="btn ghost" data-action="copy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Копировать</span>
+        </button>
+        <button class="btn ghost danger" data-action="delete" title="Удалить в Корзину">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Удалить</span>
+        </button>
+      </div>
+    </figure>
+  </template>
+
+
+  <script>
+    (function () {
+      var logos = {
+        lumina: "img/lumina-512.png",
+        emerald: "img/lumina-emerald.png",
+        indigo: "img/lumina-indigo.png",
+        dark: "img/lumina-dark.png"
+      };
+      var grads = {
+        lumina: ["#f0607a", "#f7a35c"],
+        emerald: ["#10b981", "#6ee7b7"],
+        indigo: ["#6366f1", "#38bdf8"],
+        dark: ["#64748b", "#cbd5e1"]
+      };
+      function setUiTheme(theme) {
+        if (!logos[theme]) theme = "lumina";
+        document.documentElement.setAttribute("data-theme", theme);
+        try { localStorage.setItem("lumina-ui-theme", theme); } catch (e) {}
+        var src = logos[theme];
+        var imgs = document.querySelectorAll("[data-theme-logo]");
+        for (var i = 0; i < imgs.length; i++) imgs[i].setAttribute("src", src);
+        var fav = document.getElementById("ui-favicon");
+        if (fav) fav.setAttribute("href", src);
+        var stops = document.querySelectorAll("#heroSparkleGrad stop");
+        if (stops.length >= 2 && grads[theme]) {
+          stops[0].setAttribute("stop-color", grads[theme][0]);
+          stops[1].setAttribute("stop-color", grads[theme][1]);
+        }
+        var btns = document.querySelectorAll("[data-ui-theme]");
+        for (var j = 0; j < btns.length; j++) {
+          btns[j].classList.toggle("active", btns[j].getAttribute("data-ui-theme") === theme);
+        }
+      }
+      var init = "lumina";
+      try {
+        var s = localStorage.getItem("lumina-ui-theme");
+        if (s && logos[s]) init = s;
+      } catch (e) {}
+      setUiTheme(init);
+      document.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-ui-theme]");
+        if (btn) setUiTheme(btn.getAttribute("data-ui-theme"));
+      });
+    })();
+  </script>
+  <!-- Скрипт подключается строго последним -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,3940 @@
+/* ==========================================================================
+   Lumina Launcher — Дизайн интерфейса (by AkeeTech)
+   Цветовая палитра: фиолетовый (#5b2a9c) → коралловый (#f0607a) → оранжевый (#f7a35c)
+   Стиль: Тёмный, чистый, современный (в духе Apple & macOS), Minecraft-эстетика
+   ========================================================================== */
+
+:root {
+  /* Базовые цвета фона и поверхностей */
+  --bg: #121216;
+  --bg-sidebar: rgba(18, 18, 22, 0.94);
+  --panel: rgba(26, 26, 32, 0.78);
+  --panel-solid: #1d1d24;
+  --panel-hover: rgba(36, 36, 45, 0.88);
+  --panel-active: rgba(45, 45, 56, 0.95);
+  
+  /* Границы и разделители */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-hover: rgba(255, 255, 255, 0.16);
+  --line-focus: rgba(240, 96, 122, 0.5);
+  
+  /* Текстовые цвета */
+  --text: #f4f4f7;
+  --text-muted: #8e8e9c;
+  --text-dim: #60606e;
+
+  /* Фирменный градиент Lumina */
+  --c1: #5b2a9c;
+  --c2: #f0607a;
+  --c3: #f7a35c;
+  --accent: linear-gradient(135deg, var(--c1) 0%, var(--c2) 52%, var(--c3) 100%);
+  --accent-hover: linear-gradient(135deg, #6c32b5 0%, #f67088 52%, #f9af6e 100%);
+  --accent-glow: 0 8px 30px rgba(240, 96, 122, 0.38);
+  --accent-soft: rgba(240, 96, 122, 0.14);
+
+  /* Статусные цвета */
+  --ok: #4ade80;
+  --ok-glow: rgba(74, 222, 128, 0.35);
+  --err: #f87171;
+  --err-glow: rgba(248, 113, 113, 0.35);
+  --warn: #fbbf24;
+  --warn-glow: rgba(251, 191, 36, 0.35);
+
+  /* Радиусы скругления */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-full: 9999px;
+
+  /* Тени */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-dock: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  /* Шрифты (100% системные Windows, без CDN) */
+  --font-main: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Code", Consolas, monospace;
+}
+
+/* Сброс и базовые стили */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 var(--font-main);
+  user-select: none;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Фоновый градиентный шум для глубины */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 90% 10%, rgba(91, 42, 156, 0.12), transparent 45%),
+              radial-gradient(circle at 10% 90%, rgba(240, 96, 122, 0.06), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row.end {
+  justify-content: flex-end;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* ==========================================================================
+   БОКОВАЯ ПАНЕЛЬ (SIDEBAR)
+   ========================================================================== */
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 14px 18px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--line);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  z-index: 10;
+}
+
+/* Брендинг */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+}
+
+.brand-logo-wrap {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(240, 96, 122, 0.35);
+  display: block;
+  object-fit: cover;
+}
+
+.brand-name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #ffffff 30%, #ffd0b5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.brand-sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Навигация */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-item * {
+  pointer-events: none;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.75;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  transform: translateX(2px);
+}
+
+.nav-item:hover .nav-icon {
+  opacity: 1;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(240, 96, 122, 0.14), rgba(247, 163, 92, 0.05));
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-item.active .nav-icon {
+  opacity: 1;
+  stroke: var(--c2);
+  filter: drop-shadow(0 0 6px rgba(240, 96, 122, 0.5));
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3.5px;
+  border-radius: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--c2);
+}
+
+/* Профиль внизу сайдбара (#account-chip) */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.account-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.account-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--line-hover);
+  transform: translateY(-1px);
+}
+
+.account-avatar-wrapper {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.account-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(91, 42, 156, 0.4);
+}
+
+.account-status-dot {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ok);
+  border: 2px solid var(--bg);
+}
+
+body.no-account .account-status-dot {
+  background: var(--text-dim);
+}
+
+.account-chip-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.account-chip-name {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-chip-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.account-chip-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   ОСНОВНОЙ КОНТЕНТ (SCREENS)
+   ========================================================================== */
+
+.content {
+  position: relative;
+  height: 100vh;
+  overflow: auto;
+  z-index: 1;
+}
+
+/* Кастомный гладкий скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  gap: 22px;
+  min-height: 100%;
+  padding: 34px 40px;
+  animation: screenFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 6px;
+}
+
+.screen-head h2 {
+  font-size: 26px;
+  letter-spacing: -0.025em;
+}
+
+.screen-head p.muted {
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.section-subhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.section-subhead h3 {
+  font-size: 17px;
+}
+
+.section-subhead p.muted {
+  font-size: 12.5px;
+  margin-top: 2px;
+}
+
+/* Карточки общего назначения */
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--line-hover);
+}
+
+/* ==========================================================================
+   КНОПКИ
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--line-hover);
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Кнопка с акцентом */
+.btn.primary {
+  background: var(--accent);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: var(--accent-glow);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  box-shadow: 0 10px 36px rgba(240, 96, 122, 0.52);
+  transform: translateY(-2px);
+}
+
+.btn.primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Прозрачная (Ghost) */
+.btn.ghost {
+  background: transparent;
+  border-color: var(--line);
+}
+
+.btn.ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line-hover);
+}
+
+/* Опасное действие (Danger) */
+.btn.danger {
+  color: var(--err);
+  border-color: rgba(248, 113, 113, 0.25);
+  background: rgba(248, 113, 113, 0.06);
+}
+
+.btn.danger:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.18);
+  border-color: var(--err);
+  box-shadow: 0 0 18px var(--err-glow);
+}
+
+/* Индикатор загрузки у кнопки */
+.btn.loading {
+  position: relative;
+  cursor: progress;
+}
+
+.btn.loading::before {
+  content: "✦";
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 13px;
+  color: #fff;
+  animation: spinSparkle 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spinSparkle {
+  0% { transform: rotate(0deg) scale(0.9); opacity: 0.7; }
+  50% { transform: rotate(180deg) scale(1.15); opacity: 1; }
+  100% { transform: rotate(360deg) scale(0.9); opacity: 0.7; }
+}
+
+/* ==========================================================================
+   ПОЛЯ ВВОДА И СЕЛЕКТЫ
+   ========================================================================== */
+
+input[type=text],
+input[type=number],
+select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: rgba(20, 20, 25, 0.85);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+select:focus {
+  border-color: var(--line-focus);
+  box-shadow: 0 0 0 3px rgba(240, 96, 122, 0.22);
+  background: rgba(25, 25, 32, 0.95);
+}
+
+input::placeholder {
+  color: var(--text-dim);
+}
+
+.mono-input {
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.5px;
+}
+
+/* Кастомная обёртка селекта с иконкой и шевроном */
+.select-styled-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.select-styled-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 38px;
+  padding-left: 36px;
+  cursor: pointer;
+}
+
+.select-styled-wrap .select-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--c2);
+  pointer-events: none;
+}
+
+.select-styled-wrap .select-chevron {
+  position: absolute;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: transform 0.2s;
+}
+
+.select-styled-wrap select:focus + .select-chevron {
+  color: var(--c2);
+  transform: rotate(180deg);
+}
+
+.header-select {
+  width: 260px;
+}
+
+.header-select select {
+  padding-left: 14px;
+}
+
+/* Тогглы (Переключатели iOS-стиля) */
+.check-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.check-toggle input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-full);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.toggle-slider::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.check-toggle input:checked + .toggle-slider {
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(240, 96, 122, 0.4);
+}
+
+.check-toggle input:checked + .toggle-slider::after {
+  transform: translateX(18px);
+}
+
+.toggle-label {
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+/* ==========================================================================
+   1. ЭКРАН ИГРАТЬ (HERO SCREEN)
+   ========================================================================== */
+
+#screen-play {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  display: none;
+}
+
+#screen-play.active {
+  display: flex;
+}
+
+/* Фоновый арт Minecraft */
+.hero-art-backdrop {
+  position: absolute;
+  inset: 0;
+  background-image: url('img/minecraft-hero.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transition: filter 0.35s ease;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, var(--accent-soft), transparent 60%),
+              linear-gradient(180deg, rgba(14, 15, 20, 0.18) 0%, rgba(14, 15, 20, 0.52) 52%, var(--bg) 96%);
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 44px 48px;
+  z-index: 1;
+}
+
+/* Заголовок героя */
+.hero-header {
+  max-width: 650px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: var(--r-full);
+  background: rgba(30, 20, 45, 0.65);
+  border: 1px solid rgba(240, 96, 122, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffe0d6;
+  margin-bottom: 12px;
+}
+
+.hero-badge .sparkle-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.hero-title {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  letter-spacing: -0.03em;
+}
+
+.hero-sub-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: rgba(20, 20, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-full);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 10px var(--c2);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 14px var(--c2); }
+}
+
+.hero-sub {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Нижняя панель управления (Play Dock) */
+.hero-bottom-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 860px;
+  margin-top: auto;
+}
+
+.play-dock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(24, 24, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: var(--shadow-dock);
+}
+
+.instance-select-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dock-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-left: 4px;
+}
+
+.play-dock .select-styled-wrap select {
+  height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  background: rgba(14, 14, 18, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.play-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Главная кнопка "Играть" */
+.btn.play {
+  position: relative;
+  height: 52px;
+  padding: 0 44px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: var(--r-lg);
+  border: 0;
+  color: #fff;
+  background: var(--accent);
+  background-size: 100% 100%;
+  box-shadow: 0 8px 28px rgba(240, 96, 122, 0.42), 0 2px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn.play::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.btn.play:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 38px rgba(240, 96, 122, 0.58), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn.play:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Анимация перелива и "дыхания" во время подготовки */
+.btn.play.loading {
+  background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3), var(--c1));
+  background-size: 300% 300%;
+  animation: gradientWave 3s ease infinite;
+  box-shadow: 0 0 30px rgba(240, 96, 122, 0.5);
+}
+
+@keyframes gradientWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body.game-running .btn.play {
+  background: #2a2a35;
+  color: var(--ok);
+  box-shadow: 0 0 20px var(--ok-glow);
+  opacity: 0.9;
+}
+
+/* Прогресс скачивания / подготовки (#progress) */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(20, 20, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.25s ease;
+}
+
+.progress[data-state="idle"] {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  padding: 0;
+  margin: -14px 0 0 0;
+  border-color: transparent;
+  overflow: hidden;
+}
+
+.progress[data-state="active"] {
+  opacity: 1;
+}
+
+.progress-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+}
+
+.progress-title-col {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-spin-sparkle {
+  color: var(--c2);
+  font-size: 14px;
+  display: inline-block;
+  animation: spinSparkle 1.8s linear infinite;
+}
+
+.progress-label {
+  font-weight: 600;
+  color: #fff;
+}
+
+.progress-text {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.progress-track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: relative;
+  height: 100%;
+  width: calc(var(--progress) * 100%);
+  background: var(--accent);
+  border-radius: var(--r-full);
+  box-shadow: 0 0 14px rgba(240, 96, 122, 0.6);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.progress[data-state="error"] .progress-fill {
+  background: var(--err);
+  box-shadow: 0 0 14px var(--err-glow);
+}
+
+.progress[data-state="done"] .progress-fill {
+  background: var(--ok);
+  box-shadow: 0 0 14px var(--ok-glow);
+}
+
+.progress-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmerMove 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmerMove {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Строка состояния запуска (#play-status) */
+.status-container {
+  min-height: 22px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.status[data-kind="loading"]::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 8px var(--c2);
+  animation: pulseDot 1.4s infinite;
+}
+
+.status[data-kind="ok"] {
+  color: var(--ok);
+}
+
+.status[data-kind="ok"]::before {
+  content: "✓";
+  font-weight: 700;
+  color: var(--ok);
+}
+
+.status[data-kind="error"] {
+  color: var(--err);
+}
+
+.status[data-kind="error"]::before {
+  content: "✕";
+  font-weight: 700;
+  color: var(--err);
+}
+
+.status[data-kind="warn"] {
+  color: var(--warn);
+}
+
+/* Панель падения / сбоя (#crash-panel) */
+.crash {
+  background: rgba(38, 18, 22, 0.9);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  box-shadow: 0 8px 32px rgba(248, 113, 113, 0.15);
+}
+
+.crash-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--err);
+  margin-bottom: 8px;
+}
+
+.crash-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.crash-desc {
+  font-size: 13px;
+  color: #ffccd4;
+  margin-bottom: 12px;
+}
+
+.crash-tail {
+  max-height: 240px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: var(--r-md);
+  background: #140d10;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  font: 12px/1.45 var(--font-mono);
+  color: #ffd8df;
+  white-space: pre-wrap;
+  user-select: text;
+  margin: 0 0 14px;
+}
+
+/* ==========================================================================
+   2. ЭКРАН ИНСТАЛЛЯЦИИ
+   ========================================================================== */
+
+.instance-list {
+  display: grid;
+  gap: 12px;
+}
+
+.instance-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.instance-card:hover {
+  background: var(--panel-hover);
+  border-color: var(--line-hover);
+  transform: translateY(-1px);
+}
+
+.instance-card.running {
+  border-color: var(--ok);
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.08), rgba(26, 26, 32, 0.8));
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.18);
+}
+
+.inst-icon-col {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.inst-block-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+.inst-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.inst-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inst-name {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.inst-running-badge {
+  display: none;
+  padding: 2px 10px;
+  border-radius: var(--r-full);
+  background: rgba(74, 222, 128, 0.15);
+  border: 1px solid var(--ok);
+  color: var(--ok);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.instance-card.running .inst-running-badge {
+  display: inline-block;
+}
+
+.inst-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.inst-badge {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.inst-version {
+  color: #fff;
+  font-weight: 500;
+}
+
+.inst-loader {
+  color: #f7a35c;
+  background: rgba(247, 163, 92, 0.1);
+  border-color: rgba(247, 163, 92, 0.2);
+}
+
+.inst-played {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-left: 4px;
+}
+
+.inst-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   3. ЭКРАН МОДЫ
+   ========================================================================== */
+
+.optimize-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.25) 0%, rgba(240, 96, 122, 0.15) 60%, rgba(247, 163, 92, 0.1) 100%), var(--panel);
+  border: 1px solid rgba(240, 96, 122, 0.3);
+  box-shadow: 0 8px 30px rgba(91, 42, 156, 0.18);
+}
+
+.optimize-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: rgba(240, 96, 122, 0.2);
+  color: #ffb8c7;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.optimize-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+.optimize-info h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.optimize-summary {
+  font-size: 13.5px;
+  max-width: 580px;
+}
+
+.pack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 14px 0 0;
+  list-style: none;
+}
+
+.pack-list li {
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.pack-list li.installed {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: rgba(74, 222, 128, 0.4);
+  color: var(--ok);
+  font-weight: 500;
+}
+
+.pack-list li.installed::before {
+  content: "✓ ";
+  font-weight: 700;
+}
+
+.pack-list li.skipped {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.mods-list {
+  display: grid;
+  gap: 6px;
+}
+
+.mod-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: var(--r-md);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+
+.mod-row:hover {
+  background: var(--panel-hover);
+  border-color: var(--line-hover);
+}
+
+.mod-toggle-wrap {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mod-toggle-wrap .mod-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mod-toggle-wrap .toggle-slider {
+  width: 34px;
+  height: 19px;
+}
+
+.mod-toggle-wrap .toggle-slider::after {
+  width: 13px;
+  height: 13px;
+  top: 2px;
+  left: 2px;
+}
+
+.mod-toggle-wrap .mod-toggle:checked + .toggle-slider {
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(240, 96, 122, 0.35);
+}
+
+.mod-toggle-wrap .mod-toggle:checked + .toggle-slider::after {
+  transform: translateX(15px);
+}
+
+.mod-name {
+  font-weight: 500;
+  color: #fff;
+}
+
+.mod-row.disabled .mod-name {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.mod-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  color: #fff;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.mod-size {
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   4. ЭКРАН АККАУНТ
+   ========================================================================== */
+
+.security-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(20, 20, 26, 0.6);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.banner-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--c2);
+  flex-shrink: 0;
+}
+
+.banner-text strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.banner-text p {
+  font-size: 12.5px;
+}
+
+.warn-card {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(35, 28, 16, 0.75);
+}
+
+.warn-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--warn);
+  margin-bottom: 8px;
+}
+
+.warn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Карточка входа с кодом (#login-panel) */
+.login-card {
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.3) 0%, rgba(24, 24, 30, 0.9) 100%);
+  border: 1px solid rgba(240, 96, 122, 0.4);
+  box-shadow: 0 12px 40px rgba(91, 42, 156, 0.25);
+}
+
+.step-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: rgba(240, 96, 122, 0.2);
+  color: #ffb5c6;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.login-code {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: 8px;
+  text-align: center;
+  padding: 18px 0;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(240, 96, 122, 0.6);
+  background: rgba(14, 14, 18, 0.7);
+  border-radius: var(--r-md);
+  border: 1px dashed rgba(240, 96, 122, 0.5);
+  margin: 16px 0 20px;
+  user-select: text;
+}
+
+.login-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.account-list {
+  display: grid;
+  gap: 10px;
+}
+
+.account-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: all 0.2s;
+}
+
+.account-card.active {
+  border-color: var(--c2);
+  background: linear-gradient(90deg, rgba(240, 96, 122, 0.09), rgba(26, 26, 32, 0.85));
+  box-shadow: 0 0 24px rgba(240, 96, 122, 0.2);
+}
+
+.account-active-badge {
+  display: none;
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 14px;
+  height: 14px;
+  background: var(--ok);
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  place-items: center;
+  border: 2px solid var(--bg);
+}
+
+.account-card.active .account-active-badge {
+  display: grid;
+}
+
+.acc-main {
+  flex: 1;
+}
+
+.acc-name {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+}
+
+.acc-uuid {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   5. ЭКРАН НАСТРОЙКИ
+   ========================================================================== */
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 18px;
+}
+
+fieldset.setting-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  border: 1px solid var(--line);
+}
+
+legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+}
+
+.legend-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--c2);
+}
+
+.field-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.hint-text {
+  font-size: 12px;
+  margin-top: -6px;
+  color: var(--text-dim);
+}
+
+.input-with-action {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-action input {
+  flex: 1;
+}
+
+.resolution-row {
+  display: flex;
+  gap: 12px;
+}
+
+.folder-actions {
+  margin-top: 4px;
+}
+
+.settings-footer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.app-version-info {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
+   6. ЭКРАН ЛОГ
+   ========================================================================== */
+
+.log-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.log-terminal-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: calc(100vh - 160px);
+  background: #0e0e12;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+
+.terminal-title {
+  margin-left: 6px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+}
+
+.log {
+  flex: 1;
+  margin: 0;
+  padding: 14px 18px;
+  overflow: auto;
+  font: 12.5px/1.45 var(--font-mono);
+  color: #d1d1db;
+  user-select: text;
+}
+
+.log-line {
+  white-space: pre-wrap;
+  word-break: break-all;
+  padding: 1px 0;
+}
+
+.log-line.warn {
+  color: var(--warn);
+}
+
+.log-line.error {
+  color: var(--err);
+  background: rgba(248, 113, 113, 0.08);
+}
+
+/* ==========================================================================
+   МОДАЛЬНЫЕ ОКНА И ДИАЛОГИ
+   ========================================================================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.modal-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(560px, 92vw);
+  max-height: 88vh;
+  background: var(--panel-solid);
+  border: 1px solid var(--line-hover);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: modalScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-body.wide {
+  width: min(880px, 94vw);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-header h2 {
+  font-size: 20px;
+}
+
+.btn-close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.btn-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.modal-content-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 24px;
+  overflow: auto;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.guide {
+  white-space: pre-wrap;
+  font: 13px/1.6 var(--font-main);
+  color: #dedee6;
+  user-select: text;
+  margin: 0;
+}
+
+/* ==========================================================================
+   ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ (TOAST)
+   ========================================================================== */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  padding: 12px 24px;
+  border-radius: var(--r-full);
+  background: rgba(26, 26, 34, 0.92);
+  border: 1px solid var(--line-hover);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.toast[data-kind="ok"] {
+  border-color: var(--ok);
+  box-shadow: 0 10px 32px rgba(74, 222, 128, 0.25);
+}
+
+.toast[data-kind="error"] {
+  border-color: var(--err);
+  box-shadow: 0 10px 32px rgba(248, 113, 113, 0.25);
+}
+
+/* ==========================================================================
+   ПУСТЫЕ СОСТОЯНИЯ (EMPTY STATES)
+   ========================================================================== */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 24px;
+}
+
+.empty-icon {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.4));
+}
+
+.empty-svg {
+  width: 48px;
+  height: 48px;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.empty-state p {
+  max-width: 400px;
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ (RESPONSIVE)
+   ========================================================================== */
+
+@media (max-width: 1040px) {
+  body {
+    grid-template-columns: 210px 1fr;
+  }
+  .screen {
+    padding: 24px;
+  }
+  .hero-content {
+    padding: 30px;
+  }
+  .hero-title {
+    font-size: 36px;
+  }
+  .play-dock {
+    flex-wrap: wrap;
+  }
+  .instance-select-wrap {
+    min-width: 100%;
+  }
+  .play-actions-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .btn.play {
+    flex: 1;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   СОСТОЯНИЯ ПРИЛОЖЕНИЯ (APP & BODY STATES)
+   ========================================================================== */
+
+body.busy {
+  cursor: progress;
+}
+
+body.mods-busy {
+  cursor: progress;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open .content {
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+
+body.no-account .account-status-dot {
+  background: var(--text-dim);
+  box-shadow: none;
+}
+
+body.logging-in #login-panel {
+  display: block;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card.warn,
+.card.warn-card,
+#mods-skipped[data-kind="warn"] {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(35, 28, 16, 0.85);
+  color: #fef3c7;
+  padding: 14px 18px;
+  border-radius: var(--r-md);
+  box-shadow: 0 4px 18px rgba(251, 191, 36, 0.12);
+}
+
+#mods-skipped[data-kind="warn"]::before {
+  content: "⚠ ";
+  font-weight: 700;
+  color: var(--warn);
+  margin-right: 6px;
+}
+
+/* ==========================================================================
+   ModNest: каталог Modrinth на экране «Моды» (стили в духе
+   существующих .card / .mod-row / .pack-list — можно переоформить)
+   ========================================================================== */
+
+.mn-head .row { gap: 8px; flex-wrap: wrap; }
+
+.mn-catalog { display: flex; flex-direction: column; gap: 14px; }
+
+.mn-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  align-self: flex-start;
+}
+.mn-kind {
+  padding: 6px 14px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.mn-kind:hover { color: var(--text); background: var(--panel-hover); }
+.mn-kind.active { color: #fff; background: var(--accent); box-shadow: var(--accent-glow); }
+
+.mn-filters { gap: 10px; flex-wrap: wrap; }
+.mn-filters #mn-query { flex: 1 1 260px; min-width: 200px; }
+.mn-filters .select-styled-wrap { flex: 0 1 200px; }
+
+.mn-shader-hint { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+.mn-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 10px; }
+
+.mn-card {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.mn-card:hover { border-color: var(--line-hover); background: var(--panel-hover); transform: translateY(-1px); }
+.mn-card.installed { border-color: rgba(74, 222, 128, 0.35); }
+.mn-icon { width: 56px; height: 56px; border-radius: var(--r-sm); object-fit: cover; background: rgba(255, 255, 255, 0.05); }
+.mn-icon[hidden] { display: block !important; visibility: hidden; }
+.mn-main { min-width: 0; }
+.mn-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.mn-title { font-weight: 600; color: var(--text); }
+.mn-author { font-size: 12px; }
+.mn-desc {
+  margin: 4px 0 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mn-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-dim); }
+.mn-actions { display: flex; flex-direction: column; gap: 6px; }
+.mn-actions .btn { padding: 6px 12px; font-size: 12px; white-space: nowrap; }
+
+.mn-updates { display: flex; flex-direction: column; gap: 10px; }
+.mn-updates-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.mn-updates-list { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 13px; }
+
+.mn-item { grid-template-columns: auto 1fr auto auto auto; }
+.mn-item .mn-item-remove { padding: 4px 10px; font-size: 12px; }
+.mn-item.disabled .mn-item-name { opacity: 0.5; text-decoration: line-through; }
+
+.mn-drop {
+  position: fixed;
+  inset: 24px;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--c2);
+  border-radius: var(--r-xl);
+  background: rgba(18, 18, 22, 0.82);
+  color: var(--text);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .mn-results { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   НОВЫЕ ЭКРАНЫ (by AkeeTech / Lumina): «Скины», «Серверы», «Миры»,
+   окно автонастройки графики, карточка «Игровой режим».
+   Фирменный стиль Lumina: тёмный стеклянный интерфейс, градиенты фиолетовый
+   (#5b2a9c) → коралловый (#f0607a) → оранжевый (#f7a35c), подиум со свечением
+   для 3D-модели, Apple-типографика и 60 FPS микро-анимации.
+   ========================================================================== */
+
+/* Навигация — адаптация при длинном меню */
+.nav {
+  overflow-y: auto;
+  min-height: 0;
+}
+@media (max-height: 720px) {
+  .nav-item {
+    padding: 7px 14px;
+  }
+}
+
+/* Общие декоративные бейджи и иконки для новых экранов */
+.card-icon-badge,
+.modal-icon-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.35) 0%, rgba(240, 96, 122, 0.22) 100%);
+  border: 1px solid rgba(240, 96, 122, 0.3);
+  color: var(--c3);
+  flex-shrink: 0;
+}
+
+.card-icon-badge svg,
+.modal-icon-badge svg {
+  width: 17px;
+  height: 17px;
+}
+
+.empty-icon-wrap {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-xl);
+  background: radial-gradient(circle at center, rgba(240, 96, 122, 0.14) 0%, rgba(91, 42, 156, 0.08) 70%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 6px;
+}
+
+.empty-icon-wrap .empty-icon {
+  width: 38px;
+  height: 38px;
+  opacity: 0.85;
+}
+
+.empty-icon-wrap .empty-svg {
+  width: 32px;
+  height: 32px;
+  color: var(--c2);
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   1. ЭКРАН «СКИНЫ» (screen-skins)
+   ========================================================================== */
+
+.skins-layout {
+  display: grid;
+  grid-template-columns: minmax(340px, 420px) 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Сцена предпросмотра с 3D-подиумом и свечением */
+.skin-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 20px 18px;
+  background: linear-gradient(180deg, rgba(28, 26, 36, 0.88) 0%, rgba(20, 19, 26, 0.88) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md), 0 0 40px rgba(91, 42, 156, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Верхняя декоративная световая дуга сцены */
+.skin-stage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(240, 96, 122, 0.5), rgba(247, 163, 92, 0.5), transparent);
+  pointer-events: none;
+}
+
+.skin-stage-scene {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-lg);
+  background: radial-gradient(circle at 50% 120%, rgba(18, 16, 25, 0.95) 0%, rgba(12, 12, 16, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+/* Фоновое мягкое свечение за персонажем */
+.stage-backdrop-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, rgba(240, 96, 122, 0.18) 0%, rgba(91, 42, 156, 0.14) 45%, transparent 72%);
+  pointer-events: none;
+  animation: stageGlowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes stageGlowPulse {
+  0% { opacity: 0.75; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Верхний конический луч света */
+.stage-light-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 400px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(240, 96, 122, 0.04) 45%, transparent 85%);
+  clip-path: polygon(28% 0%, 72% 0%, 96% 100%, 4% 100%);
+  pointer-events: none;
+}
+
+/* Зона с canvas-моделями */
+.skin-stage-view {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+}
+
+#skin-3d {
+  width: 100%;
+  max-width: 360px;
+  height: 430px;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65));
+  transition: transform 0.15s ease-out;
+}
+
+#skin-3d:active {
+  cursor: grabbing;
+}
+
+#skin-2d {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
+  padding: 18px 0;
+}
+
+/* Подиум под ногами 3D-модели */
+.stage-podium {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 90px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Тень под подиумом */
+.podium-floor-shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 310px;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.45) 50%, transparent 75%);
+  border-radius: 50%;
+}
+
+/* Ореол энергии вокруг подиума */
+.podium-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 290px;
+  height: 94px;
+  background: radial-gradient(ellipse at center, rgba(240, 96, 122, 0.42) 0%, rgba(91, 42, 156, 0.22) 50%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(8px);
+  animation: podiumHaloBreath 3s ease-in-out infinite alternate;
+}
+
+@keyframes podiumHaloBreath {
+  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* Внешнее светящееся кольцо подиума с наклоном в 3D */
+.podium-ring-outer {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(66deg);
+  width: 250px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(240, 96, 122, 0.7);
+  box-shadow: 0 0 24px rgba(240, 96, 122, 0.55),
+              inset 0 0 16px rgba(91, 42, 156, 0.45);
+}
+
+/* Внутреннее кристаллическое кольцо */
+.podium-ring-inner {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(66deg);
+  width: 200px;
+  height: 96px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 12px rgba(247, 163, 92, 0.45);
+}
+
+/* Трёхмерная основа подиума */
+.podium-core {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(66deg);
+  width: 180px;
+  height: 86px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(50, 40, 68, 0.95) 0%, rgba(22, 20, 32, 0.98) 70%, rgba(14, 13, 20, 1) 100%);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.95),
+              inset 0 2px 4px rgba(255, 255, 255, 0.35);
+}
+
+/* Центральный энергетический диск */
+.podium-disc {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(66deg);
+  width: 120px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(247, 163, 92, 0.4) 0%, rgba(240, 96, 122, 0.2) 60%, transparent 80%);
+}
+
+/* Переключатель вида (3D / 2D) */
+.skin-view-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-full);
+  background: rgba(20, 20, 26, 0.75);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+  z-index: 7;
+}
+
+.skin-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skin-view svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.75;
+}
+
+.skin-view:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.skin-view.active {
+  color: #fff;
+  font-weight: 600;
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
+}
+
+.skin-view.active svg {
+  opacity: 1;
+}
+
+/* Подсказка под сценой */
+.skin-stage-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.stage-hint-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--c2);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.skin-stage-note {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Боковая колонка: Редактор и Аккаунт */
+.skin-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.skin-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.skin-card-header h3 {
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.skin-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skin-editor-actions,
+.skin-account-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skin-editor-actions .btn,
+.skin-account-actions .btn {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+/* Карточка аккаунта со скином и плащами */
+.skin-account {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skin-account-head {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.skin-avatar-frame {
+  position: relative;
+  width: 72px;
+  height: 136px;
+  padding: 4px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.25) 0%, rgba(240, 96, 122, 0.15) 100%);
+  border: 1px solid rgba(240, 96, 122, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(240, 96, 122, 0.15);
+  flex-shrink: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.skin-avatar-frame:hover {
+  transform: translateY(-2px);
+  border-color: var(--c2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 26px rgba(240, 96, 122, 0.3);
+}
+
+#skin-current {
+  width: 64px;
+  height: 128px;
+  image-rendering: pixelated;
+  border-radius: calc(var(--r-md) - 3px);
+  background: rgba(0, 0, 0, 0.35);
+  display: block;
+}
+
+.skin-account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.skin-account-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--c3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.skin-account-info h3 {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.skin-capes-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 2px 0;
+}
+
+.skin-capes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.skin-capes-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skin-capes-title-row .section-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--c2);
+}
+
+.skin-capes-head h3 {
+  font-size: 15px;
+}
+
+.cape-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cape-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--r-md);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.cape-thumb-wrap {
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  border-radius: var(--r-sm);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.cape-thumb {
+  width: 40px;
+  height: 64px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.cape-name {
+  font-weight: 500;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cape-item:hover {
+  border-color: var(--line-hover);
+  background: var(--panel-hover);
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.cape-item.active {
+  border-color: var(--c2);
+  color: #fff;
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.28) 0%, rgba(240, 96, 122, 0.2) 100%);
+  box-shadow: 0 0 20px rgba(240, 96, 122, 0.32);
+}
+
+.cape-item.loading {
+  opacity: 0.6;
+}
+
+/* Сетка карточек библиотеки скинов */
+.skin-library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+  gap: 14px;
+}
+
+.skin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px 12px;
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.skin-thumb-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.skin-thumb {
+  width: 64px;
+  height: 128px;
+  image-rendering: pixelated;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+}
+
+.skin-card-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.skin-card-name {
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.skin-card-variant {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.skin-card:hover,
+.skin-card:focus-visible {
+  border-color: var(--line-hover);
+  background: var(--panel-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.skin-card.selected {
+  border-color: var(--c2);
+  background: linear-gradient(180deg, rgba(91, 42, 156, 0.18) 0%, rgba(240, 96, 122, 0.1) 100%), var(--panel);
+  box-shadow: 0 0 24px rgba(240, 96, 122, 0.28), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.skin-card.selected::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Оверлей перетаскивания PNG */
+.skin-drop {
+  border: 2px dashed var(--c2);
+  background: rgba(20, 18, 28, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(240, 96, 122, 0.35);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ==========================================================================
+   2. ЭКРАН «СЕРВЕРЫ» (screen-servers)
+   ========================================================================== */
+
+/* Форма добавления сервера в командном стиле Lumina */
+.srv-add {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 18px;
+  background: linear-gradient(180deg, rgba(30, 28, 38, 0.8) 0%, rgba(22, 22, 28, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.srv-add-inputs {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.srv-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 200px;
+}
+
+.srv-input-group.srv-addr-group {
+  flex: 2 1 300px;
+}
+
+.srv-input-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--text-dim);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.srv-input-group input {
+  width: 100%;
+  padding-left: 36px;
+}
+
+.srv-input-group input:focus + .srv-input-icon,
+.srv-input-group:focus-within .srv-input-icon {
+  color: var(--c2);
+}
+
+.srv-add button[type="submit"] {
+  flex-shrink: 0;
+  padding: 10px 22px;
+}
+
+.srv-subhead {
+  margin-top: 4px;
+}
+
+.srv-subhead .row {
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Список серверов */
+.srv-list {
+  display: grid;
+  gap: 12px;
+}
+
+.server-card {
+  display: grid;
+  grid-template-columns: 68px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: var(--r-xl);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.server-card:hover {
+  border-color: var(--line-hover);
+  background: var(--panel-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Колонка иконки сервера */
+.srv-icon-col {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.srv-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-md);
+  image-rendering: pixelated;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  display: block;
+}
+
+.srv-state-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  background: var(--text-dim);
+}
+
+/* Состояния сервера (online / offline / loading) */
+.server-card[data-state="online"] {
+  border-left: 3px solid var(--ok);
+}
+
+.server-card[data-state="online"] .srv-state-dot {
+  background: var(--ok);
+  box-shadow: 0 0 10px var(--ok-glow);
+}
+
+.server-card[data-state="offline"] {
+  border-left: 3px solid var(--err);
+  opacity: 0.88;
+}
+
+.server-card[data-state="offline"] .srv-state-dot {
+  background: var(--err);
+  box-shadow: 0 0 10px var(--err-glow);
+}
+
+.server-card[data-state="loading"] .srv-state-dot {
+  background: var(--warn);
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+.server-card[data-state="loading"] .srv-motd {
+  color: var(--text-dim);
+}
+
+/* Основной блок информации */
+.srv-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.srv-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.srv-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: -0.015em;
+}
+
+.srv-address {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* MOTD в стиле консоли Minecraft */
+.srv-motd {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  white-space: pre-line;
+  color: #c0c0c8;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  max-height: 80px;
+  overflow: auto;
+}
+
+/* Мета-информация: игроки, версия, пинг */
+.srv-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.srv-players,
+.srv-version,
+.srv-ping {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.srv-ping {
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.srv-ping[data-quality="good"] {
+  color: var(--ok);
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.srv-ping[data-quality="ok"] {
+  color: var(--warn);
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.srv-ping[data-quality="bad"] {
+  color: var(--err);
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+/* Действия сервера */
+.srv-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.srv-actions .btn {
+  padding: 7px 12px;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   3. ЭКРАН «МИРЫ» (screen-worlds)
+   ========================================================================== */
+
+.wr-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Сегментированный переключатель вкладок */
+.wr-tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-full);
+  background: rgba(20, 20, 26, 0.75);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+}
+
+.wr-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wr-tab svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.75;
+}
+
+.wr-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wr-tab.active {
+  color: #fff;
+  font-weight: 600;
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
+}
+
+.wr-tab.active svg {
+  opacity: 1;
+}
+
+.wr-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Список миров */
+.world-list {
+  display: grid;
+  gap: 12px;
+}
+
+.world-card {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: var(--r-xl);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.world-card:hover {
+  border-color: var(--line-hover);
+  background: var(--panel-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.world-card.running {
+  border-color: rgba(74, 222, 128, 0.45);
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.15);
+}
+
+.world-icon-col {
+  width: 64px;
+  height: 64px;
+}
+
+.world-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-md);
+  image-rendering: pixelated;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  display: block;
+}
+
+.world-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.world-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.world-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16.5px;
+  color: #fff;
+  letter-spacing: -0.015em;
+}
+
+.world-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.world-mode,
+.world-size,
+.world-played {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.world-folder {
+  font-size: 11.5px;
+  font-family: var(--font-mono);
+}
+
+.world-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.world-actions .btn {
+  padding: 7px 13px;
+  font-size: 12.5px;
+}
+
+/* Строки резервных копий */
+.backup-row {
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: center;
+}
+
+.backup-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-sm);
+  background: rgba(247, 163, 92, 0.12);
+}
+
+.backup-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--c3);
+}
+
+.backup-row.orphan .backup-instance {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.backup-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.backup-actions .btn {
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* Галерея скриншотов */
+.shot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.shot-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.shot-card:hover {
+  border-color: var(--line-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.shot-open {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: zoom-in;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.shot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shot-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #fff;
+}
+
+.shot-overlay svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.shot-open:hover .shot-img {
+  transform: scale(1.05);
+}
+
+.shot-open:hover .shot-overlay {
+  opacity: 1;
+}
+
+.shot-card.no-thumb .shot-img {
+  visibility: hidden;
+}
+
+.shot-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px 6px;
+  min-width: 0;
+}
+
+.shot-name {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.shot-meta {
+  font-size: 11.5px;
+}
+
+.shot-actions {
+  display: flex;
+  gap: 6px;
+  padding: 6px 14px 14px;
+}
+
+.shot-actions .btn {
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   4. ОКНО «АВТОНАСТРОЙКА ГРАФИКИ» (gfx-modal)
+   ========================================================================= */
+
+.gfx-modal-body {
+  border: 1px solid rgba(240, 96, 122, 0.25);
+  box-shadow: var(--shadow-lg), 0 0 50px rgba(91, 42, 156, 0.2);
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Сводка железа */
+.gfx-hw {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 18px;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(30, 26, 42, 0.8) 0%, rgba(20, 20, 26, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-lg);
+  margin-bottom: 4px;
+}
+
+.gfx-hw-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.gfx-hw-item .muted {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.gfx-hw-item strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.gfx-note {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+
+/* Карточки профилей графики */
+.gfx-profiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 6px 0;
+}
+
+.gfx-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 16px;
+  text-align: left;
+  border-radius: var(--r-xl);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.gfx-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gfx-profile-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+}
+
+.gfx-profile-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.gfx-profile-icon.fps-icon {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--warn);
+}
+
+.gfx-profile-icon.balance-icon {
+  background: rgba(240, 96, 122, 0.15);
+  color: var(--c2);
+}
+
+.gfx-profile-icon.quality-icon {
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.35) 0%, rgba(240, 96, 122, 0.25) 100%);
+  color: var(--c3);
+}
+
+.gfx-profile strong {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.gfx-profile span {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.gfx-profile:hover:not(:disabled) {
+  border-color: var(--line-hover);
+  background: var(--panel-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.gfx-profile.active {
+  border-color: var(--c2);
+  background: linear-gradient(135deg, rgba(91, 42, 156, 0.32) 0%, rgba(240, 96, 122, 0.18) 100%);
+  box-shadow: 0 0 28px rgba(240, 96, 122, 0.3);
+}
+
+.gfx-profile.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--accent);
+}
+
+.gfx-profile.loading {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.gfx-profile:disabled {
+  cursor: progress;
+}
+
+/* Список применённых изменений */
+.gfx-changes {
+  margin: 6px 0 0;
+  padding: 12px 18px;
+  border-radius: var(--r-md);
+  background: rgba(12, 12, 16, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 12.5px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  columns: 2 300px;
+}
+
+.gfx-changes:empty {
+  display: none;
+}
+
+.gfx-changes li {
+  break-inside: avoid;
+  margin-bottom: 4px;
+}
+
+.gfx-changes li[data-file="sodium-options.json"] {
+  color: var(--c3);
+}
+
+/* ==========================================================================
+   5. КАРТОЧКА «ИГРОВОЙ РЕЖИМ» (gamemode-card)
+   ========================================================================== */
+
+.gamemode-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 26, 40, 0.75) 0%, rgba(24, 24, 30, 0.75) 100%);
+  border: 1px solid rgba(240, 96, 122, 0.22);
+  box-shadow: var(--shadow-sm), 0 0 30px rgba(91, 42, 156, 0.08);
+}
+
+.gamemode-card legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(135deg, var(--c1) 0%, var(--c2) 100%);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(240, 96, 122, 0.4);
+}
+
+.legend-badge .legend-icon {
+  width: 14px;
+  height: 14px;
+  color: #fff;
+}
+
+.gamemode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gamemode-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s;
+}
+
+.gamemode-item:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.gamemode-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.gamemode-hw-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  background: rgba(14, 14, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gamemode-hw-box:has(#gamemode-hw:empty) {
+  display: none;
+}
+
+.gamemode-hw-icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: var(--c2);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.gamemode-hw-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+#gamemode-hw {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ НОВЫХ ЭКРАНОВ
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .skins-layout {
+    grid-template-columns: 1fr;
+  }
+  .gfx-profiles {
+    grid-template-columns: 1fr;
+  }
+  .server-card,
+  .world-card {
+    grid-template-columns: 56px 1fr;
+  }
+  .srv-actions,
+  .world-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .srv-icon-col,
+  .world-icon-col,
+  .srv-icon,
+  .world-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* ===== ИКОНКИ СБОРОК (оформление Lumina) ===== */
+.icon-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  gap: 10px;
+  margin: 8px 0 14px;
+  padding: 4px;
+}
+
+.icon-choice {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 8px;
+  border-radius: var(--r-md, 12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.icon-choice:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.icon-choice:focus-visible {
+  border-color: var(--c2);
+  box-shadow: 0 0 0 2px rgba(240, 96, 122, 0.35);
+}
+
+.icon-choice.active {
+  border-color: #f0607a;
+  background: radial-gradient(circle at 50% 50%, rgba(240, 96, 122, 0.22) 0%, rgba(91, 42, 156, 0.35) 100%);
+  box-shadow: 0 0 0 1px #f0607a inset, 0 6px 20px rgba(240, 96, 122, 0.3);
+  transform: translateY(-2px) scale(1.04);
+}
+
+.icon-choice.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  width: 14px;
+  height: 3px;
+  border-radius: var(--r-full, 9999px);
+  background: var(--accent);
+  box-shadow: 0 0 8px #f0607a;
+}
+
+.icon-choice img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon-choice:hover img {
+  transform: scale(1.08);
+}
+
+.icon-choice.active img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 3px 8px rgba(240, 96, 122, 0.4));
+}
+
+.icon-custom-btn {
+  align-self: flex-start;
+}
+
+.inst-block-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s;
+}
+
+.instance-card:hover .inst-block-icon {
+  transform: scale(1.06) translateY(-1px);
+  filter: drop-shadow(0 6px 14px var(--accent-soft));
+}
+
+/* ==========================================================================
+   ТЕМЫ ОФОРМЛЕНИЯ ЛАУНЧЕРА (Зелёный градиент, Индиго, Тёмный градиент)
+   ========================================================================== */
+
+html[data-theme="emerald"] {
+  --bg: #0b1310;
+  --bg-sidebar: rgba(11, 20, 16, 0.95);
+  --panel: rgba(17, 32, 26, 0.8);
+  --panel-solid: #13241d;
+  --panel-hover: rgba(23, 44, 35, 0.9);
+  --panel-active: rgba(29, 55, 44, 0.96);
+  --line-focus: rgba(16, 185, 129, 0.55);
+  --c1: #064e3b;
+  --c2: #10b981;
+  --c3: #6ee7b7;
+  --accent: linear-gradient(135deg, #064e3b 0%, #10b981 54%, #6ee7b7 100%);
+  --accent-hover: linear-gradient(135deg, #065f46 0%, #34d399 54%, #a7f3d0 100%);
+  --accent-glow: 0 8px 30px rgba(16, 185, 129, 0.38);
+  --accent-soft: rgba(16, 185, 129, 0.18);
+}
+
+html[data-theme="indigo"] {
+  --bg: #0b0e18;
+  --bg-sidebar: rgba(12, 15, 27, 0.95);
+  --panel: rgba(19, 24, 44, 0.82);
+  --panel-solid: #151b30;
+  --panel-hover: rgba(26, 33, 59, 0.9);
+  --panel-active: rgba(34, 43, 76, 0.96);
+  --line-focus: rgba(99, 102, 241, 0.55);
+  --c1: #1e1b4b;
+  --c2: #6366f1;
+  --c3: #38bdf8;
+  --accent: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 52%, #38bdf8 100%);
+  --accent-hover: linear-gradient(135deg, #312e81 0%, #6366f1 52%, #7dd3fc 100%);
+  --accent-glow: 0 8px 30px rgba(79, 70, 229, 0.42);
+  --accent-soft: rgba(99, 102, 241, 0.18);
+}
+
+html[data-theme="dark"] {
+  --bg: #090b0f;
+  --bg-sidebar: rgba(10, 12, 17, 0.96);
+  --panel: rgba(18, 21, 30, 0.84);
+  --panel-solid: #141822;
+  --panel-hover: rgba(25, 30, 42, 0.92);
+  --panel-active: rgba(33, 39, 54, 0.96);
+  --line-focus: rgba(148, 163, 184, 0.5);
+  --c1: #0f172a;
+  --c2: #64748b;
+  --c3: #cbd5e1;
+  --accent: linear-gradient(135deg, #0f172a 0%, #334155 52%, #64748b 100%);
+  --accent-hover: linear-gradient(135deg, #1e293b 0%, #475569 52%, #94a3b8 100%);
+  --accent-glow: 0 8px 30px rgba(100, 116, 139, 0.35);
+  --accent-soft: rgba(100, 116, 139, 0.18);
+}
+
+/* Адаптация акцентов под активную тему */
+.brand-logo {
+  box-shadow: var(--accent-glow);
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.brand-name {
+  background: linear-gradient(135deg, #ffffff 30%, var(--c3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
+}
+
+.nav-item.active .nav-icon {
+  stroke: var(--c2);
+  filter: drop-shadow(0 0 6px var(--accent-soft));
+}
+
+.btn.play,
+.btn.primary {
+  box-shadow: var(--accent-glow);
+}
+
+.btn.play:hover:not(:disabled),
+.btn.primary:hover:not(:disabled) {
+  box-shadow: var(--accent-glow), 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.hero-badge {
+  border-color: var(--line-focus);
+  color: #f8fafc;
+}
+
+.optimize-card {
+  background: linear-gradient(135deg, var(--accent-soft) 0%, transparent 75%), var(--panel);
+  border-color: var(--line-focus);
+  box-shadow: var(--accent-glow);
+}
+
+.optimize-badge {
+  background: var(--accent-soft);
+  color: var(--c3);
+}
+
+/* Быстрый переключатель тем в боковой панели */
+.sidebar-theme-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+}
+
+.sidebar-theme-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-theme-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sidebar-theme-btn {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.sidebar-theme-btn img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  display: block;
+}
+
+.sidebar-theme-btn:hover {
+  transform: translateY(-1px) scale(1.06);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar-theme-btn.active {
+  border-color: var(--c3);
+  box-shadow: 0 0 0 1px var(--c2), 0 3px 10px rgba(0, 0, 0, 0.45);
+  transform: scale(1.08);
+}
+
+/* Карточки выбора темы в разделе «Настройки» */
+.theme-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.theme-option-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-option-card img {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.theme-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.theme-option-info strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.theme-option-info span {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.theme-option-card:hover {
+  background: rgba(255, 255, 255, 0.075);
+  border-color: var(--line-hover);
+  transform: translateY(-1px);
+}
+
+.theme-option-card.active {
+  border-color: var(--c2);
+  background: linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.04));
+  box-shadow: 0 0 0 1px var(--c2) inset, var(--accent-glow);
+}
+
+.security-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.sec-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--r-full);
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  color: #86efac;
+  font-size: 11px;
+  font-weight: 600;
+}

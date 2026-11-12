@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <filter id="blockGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#blockGlow)">
+    <!-- Top Face (Grass) -->
+    <path d="M60 14 L106 38 L60 62 L14 38 Z" fill="#5db838"/>
+    <!-- Top Face pixel highlights -->
+    <path d="M50 26 L64 33 L54 38 L40 31 Z" fill="#6bc943"/>
+    <path d="M72 32 L86 39 L78 43 L64 36 Z" fill="#4fa02f"/>
+    <path d="M30 35 L44 42 L36 46 L22 39 Z" fill="#6bc943"/>
+    <path d="M78 45 L92 52 L84 56 L70 49 Z" fill="#6bc943"/>
+
+    <!-- Left Face (Dirt + Grass overhang) -->
+    <path d="M14 38 L60 62 L60 106 L14 82 Z" fill="#866043"/>
+    <!-- Left Face dirt pixels -->
+    <path d="M22 55 L32 60 L32 68 L22 63 Z" fill="#6c4c34"/>
+    <path d="M38 72 L48 77 L48 85 L38 80 Z" fill="#996e4d"/>
+    <path d="M20 74 L30 79 L30 87 L20 82 Z" fill="#6c4c34"/>
+    <path d="M44 58 L54 63 L54 71 L44 66 Z" fill="#6c4c34"/>
+    <!-- Left Face grass top fringe -->
+    <path d="M14 38 L60 62 L60 72 L50 67 L50 74 L40 69 L40 76 L30 71 L30 75 L20 70 L20 73 L14 70 Z" fill="#4c7830"/>
+
+    <!-- Right Face (Dirt in shadow + Grass overhang) -->
+    <path d="M60 62 L106 38 L106 82 L60 106 Z" fill="#684a33"/>
+    <!-- Right Face dirt pixels -->
+    <path d="M72 58 L82 53 L82 61 L72 66 Z" fill="#553c29"/>
+    <path d="M88 64 L98 59 L98 67 L88 72 Z" fill="#7d5a3f"/>
+    <path d="M68 76 L78 71 L78 79 L68 84 Z" fill="#553c29"/>
+    <!-- Right Face grass top fringe -->
+    <path d="M60 62 L106 38 L106 48 L96 53 L96 47 L86 52 L86 59 L76 54 L76 60 L68 56 L68 64 L60 68 Z" fill="#3c5f26"/>
+  </g>
+</svg>

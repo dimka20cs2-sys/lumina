@@ -1,2 +1,8 @@
 server.js
-_*.html
+*.md
+src/
+ui/
+installer/
+brand/
+build.bat
+LICENSE
